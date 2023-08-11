@@ -14,40 +14,77 @@ class Sucursal {
     this.cliente = info.cliente;
   }
 
-  // INGRESAR MERCADERIA
-  ingreso(producto, cant) {
+  //VER EL STOCK DE MERCADERIA
+
+  verStock(sucursal) {
+    sucursal.items.forEach((element) => console.log(element));
+  }
+
+  //NUEVA FUNCION DE INGRESO DE MERCADERIA EN DESARROLLO
+  //ingresa stock en la sucursal, y en el producto mismo.
+
+  ingreso(producto, cant, suc) {
     this.stockTotal += cant;
-    if (this.items.includes(producto)) {
-      // console.log(`El producto ya ha sido ingresado`);
-      this.items[this.items.indexOf(producto)].stock += cant; //si ya existe, solo agrega stock
+
+    //si el objeto que contiene los datos del stock ya existe dentro del producto
+    //productoStock es igual a este objeto existente
+    const productoStock = producto.stock.find(
+      (element) =>
+        element.nombre === producto.nombre && element.sucursal === suc.nombre
+    );
+    //si efectivamente el producto ya existe, solo suma la cantidad dentro
+    //del stock del producto
+    if (productoStock) {
+      productoStock.cantidad += cant;
+    }
+
+    //se itera dentro del stock de la sucursal buscando si el producto ya existe
+    const productoExistente = suc.items.find(
+      (element) => element.nombre === producto.nombre
+    );
+
+    //si exixste, solo actualiza la cantidad
+    if (productoExistente) {
+      productoExistente.cantidad += cant;
     } else {
-      this.items.push(producto); //agrega producto nuevo
-      this.items[this.items.indexOf(producto)].stock += cant; //agrega la cantidad al stock
+      // si el producto no existe dentro de la sucursal, por ende tampoco
+      //existirá el stock dentro del producto, porque este stock registra
+      //las cantidades con sus respectivas sucursales.
+      //Por lo tanto, se lo agrega tanto al stock de la sucursal, como
+      //al stock del producto
+      suc.items.push({ nombre: producto.nombre, cantidad: cant });
+      producto.stock.push({
+        sucursal: suc.nombre,
+        nombre: producto.nombre,
+        cantidad: cant,
+      });
     }
   }
 
-  //VENTA DE MERCADERIA
+  //NUEVA FUNCION DE VENTA DE MERCADERIA EN DESARROLLO
   venta(producto, cantidad, descuento) {
-    if (this.items.includes(producto) == false) {
-      console.log('No se encontro el producto');
-    } else if (this.items.includes(producto)) {
-      for (let element of this.items) {
-        if (element == producto) {
-          if (producto.stock <= 0) {
-            console.log('sin stock');
-          } else if (cantidad > producto.stock) {
-            console.log(
-              `error: stock insuficiente, el stock es de ${producto.stock}`
-            );
-          } else {
-            descuento = producto.precio * (descuento / 100);
-            producto.stock -= cantidad;
-            producto.vendido += cantidad;
-            this.stockTotal -= cantidad;
-            this.ventaDia += (producto.precio - descuento) * cantidad;
-          }
-        }
-      }
+    //Stock en sucursal
+    const prodEnSucursal = this.items.find(
+      (elemento) => elemento.nombre == producto.nombre
+    );
+    //Stock en producto
+    const stockEnProducto = producto.stock.find(
+      (element) =>
+        element.nombre === producto.nombre && element.sucursal === this.nombre
+    );
+    if (!prodEnSucursal || prodEnSucursal.cantidad <= 0) {
+      console.log('Sin stock');
+    } else if (cantidad > prodEnSucursal.cantidad) {
+      console.log(
+        `Stock insuficiente. Stock actual ${prodEnSucursal.cantidad}`
+      );
+    } else {
+      descuento = producto.precio * (descuento / 100);
+      prodEnSucursal.cantidad -= cantidad;
+      stockEnProducto.cantidad -= cantidad;
+      producto.vendido += cantidad;
+      this.stockTotal -= cantidad;
+      this.ventaDia += (producto.precio - descuento) * cantidad;
     }
   }
 
@@ -87,7 +124,7 @@ class Producto {
   constructor(info) {
     this.articulo = info.articulo;
     this.codigo = info.codigo;
-    this.modelo = info.modelo;
+    this.nombre = info.nombre;
     this.precio = info.precio;
     this.medida = info.medida;
     this.categoria = info.categoria;
