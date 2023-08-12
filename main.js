@@ -1,4 +1,6 @@
-const { Producto, Sucursal, Empleado, Cliente } = require('./objects');
+// const { Producto, Sucursal, Empleado, Cliente } = require('./objects');
+
+import { Sucursal, Producto, Empleado, Cliente } from './objects.js';
 
 //INSTANCIAS PRODUCTOS
 
@@ -64,14 +66,12 @@ const sucAvellaneda = new Sucursal({
 
 //sucCapFederal.ingreso(toaLisa, 100, 'capital');
 sucAvellaneda.ingreso(toaLisa, 100, sucAvellaneda);
-sucCapFederal.ingreso(toaLisa, 100, sucCapFederal);
-sucAvellaneda.venta(toaLisa, 100, 0);
-sucAvellaneda.venta(toaLisa, 1, 0);
-
+sucAvellaneda.ingreso(toaLisa, 100, sucAvellaneda);
+// sucAvellaneda.venta(toaLisa, 50, 0);
+// console.log(toaLisa);
+sucCapFederal.ingreso(toaLisa, 0, sucCapFederal);
+sucCapFederal.movimiento(toaLisa, 100, sucAvellaneda, sucCapFederal);
 console.log(toaLisa);
-console.log(sucAvellaneda);
-
-// sucCapFederal.ingreso(toaLisa, 100);
 
 ////////INGRESOS MERCADERIA AVELLANEDA////////
 
@@ -135,7 +135,7 @@ sucCapFederal.ingresarCliente(
 //CUANDO SE FINALIZA LA ATENCIÓN DEL CLIENTE, EL EMPLEADO MANDA A LA CAJA ESE CARRITO
 //DESDE LA CAJA SE INGRESA EL CLIENTE, Y SE ENLAZA CON ESE CARRITO.
 //CLIENTE ACUMULA PUNTOS?
-//AGREGAR COLORES LITERALES, CHEQUEAR EL PDF DE COLORES BLA BLA
+//AGREGAR COLORES LITERALES
 //
 //
 //
@@ -146,3 +146,11 @@ sucCapFederal.ingresarCliente(
 //QUIZAS INSTANCIANDO LOS OBJETOS CON CONST, LLENAMOS EL ARRAY DE VARIABLES Y SE PUEDE METER UN GRAN INCLUDES(VARIABLE)
 //DESPUES PARA VER EL STOCK SE HACE UNA FUNCION ACORDE Y CHAU
 //EL OBJETO EN CUESTION SERIA {SUCURSAL:ASDASD, CANTIDAD:123}
+
+//FUNCIONAMIENTO DE LA FUNCION MOVIMIENTO DE MERCADERIA
+//PARAMETROS: PRODUCTO QUE QUEREMOS MOVER, SUCURSAL DE LA QUE VAMOS
+//A SACAR EL PRODUCTO Y POR ULTIMO LA CANTIDAD.
+//
+
+//IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE//
+//CHEQUEAR USO INNECESARIO DE PARAMETROS SUCURSAL, HACER USO DEL THIS.NOMBRE DE LA SUCURSAL PARA EVITAR LA REDUNDANCIA

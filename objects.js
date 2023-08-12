@@ -26,14 +26,11 @@ class Sucursal {
   ingreso(producto, cant, suc) {
     this.stockTotal += cant;
 
-    //si el objeto que contiene los datos del stock ya existe dentro del producto
-    //productoStock es igual a este objeto existente
     const productoStock = producto.stock.find(
       (element) =>
         element.nombre === producto.nombre && element.sucursal === suc.nombre
     );
-    //si efectivamente el producto ya existe, solo suma la cantidad dentro
-    //del stock del producto
+
     if (productoStock) {
       productoStock.cantidad += cant;
     }
@@ -43,16 +40,8 @@ class Sucursal {
       (element) => element.nombre === producto.nombre
     );
 
-    //si exixste, solo actualiza la cantidad
-    if (productoExistente) {
-      productoExistente.cantidad += cant;
-    } else {
-      // si el producto no existe dentro de la sucursal, por ende tampoco
-      //existirá el stock dentro del producto, porque este stock registra
-      //las cantidades con sus respectivas sucursales.
-      //Por lo tanto, se lo agrega tanto al stock de la sucursal, como
-      //al stock del producto
-      suc.items.push({ nombre: producto.nombre, cantidad: cant });
+    if (!productoExistente) {
+      suc.items.push(producto);
       producto.stock.push({
         sucursal: suc.nombre,
         nombre: producto.nombre,
@@ -61,7 +50,7 @@ class Sucursal {
     }
   }
 
-  //NUEVA FUNCION DE VENTA DE MERCADERIA EN DESARROLLO
+  //NUEVA FUNCION DE VENTA DE MERCADERIA EN DESARROLLO (se deben poder ingresar todos los productos que uno quiera)
   venta(producto, cantidad, descuento) {
     //Stock en sucursal
     const prodEnSucursal = this.items.find(
@@ -80,13 +69,78 @@ class Sucursal {
       );
     } else {
       descuento = producto.precio * (descuento / 100);
-      prodEnSucursal.cantidad -= cantidad;
       stockEnProducto.cantidad -= cantidad;
       producto.vendido += cantidad;
       this.stockTotal -= cantidad;
       this.ventaDia += (producto.precio - descuento) * cantidad;
     }
   }
+
+  //FUNCION MOVIMIENTOS DE MERCADERIA
+
+  movimiento(producto, cantidad, sucursalOrigen, sucursalDestino) {
+    //Rastramos la sucursal donde se encuentra el proucto (origen) (Solo el prod lleva este registro)
+    //(Las sucursales solo stockean el objeto producto entero con todas sus propiedades, entre ellas, este registro)
+    const stkOrigen = producto.stock.find(
+      (element) =>
+        element.nombre == producto.nombre &&
+        element.sucursal == sucursalOrigen.nombre
+    );
+    //Cuando ya tenemos la sucursal dede donde queremos sacar el producto, le restamos la cantidad
+    //deseada al mismo, PERO, si la cantidad que queremos sacar es mayor a la que tiene el producto
+    //tiramos un error de stock insuficiente. De lo contrario continuamos la ejecucion
+    if (stkOrigen) {
+      if (stkOrigen.cantidad < cantidad) {
+        console.log(`Stock insuficiente. El stock es de ${stkOrigen.cantidad}`);
+      } else {
+        stkOrigen.cantidad -= cantidad;
+        //Esta constante va a rastrar la sucursal de destino (EN EL PRODUCTO)
+        const sktDestino = producto.stock.find(
+          (element) =>
+            element.nombre == producto.nombre &&
+            element.sucursal == sucursalDestino.nombre
+        );
+        //Una vez que la encontramos, agregamos la cantidad
+        if (sktDestino) {
+          sktDestino.cantidad += cantidad;
+        } //SI EL PRODUCTO NO FUE NUNCA INGRESADO, SE DEBE INGRESAR EN LA SUCURSAL COMO ITEM Y EN EL STOCK PROPIO
+        //DEL PRODUCTO, CON SUCURSAL Y TODO
+        else {
+          sucursalDestino.items.push(producto);
+          producto.stock.push({
+            sucursal: sucursalDestino.nombre,
+            nombre: producto.nombre,
+            cantidad: cantidad,
+          });
+        }
+      }
+    } //else no se encontro el producto?? osea, no hubo un ingreso del prodcuto en el stock
+    //de la suc origen
+  }
+  // movimiento(producto, cantidad, sucursalOrigen, sucursalDestino) {
+  //   //Rastramos la sucursal donde se encuentra el proucto (origen) (Solo el prod lleva este registro)
+  //   //(Las sucursales solo stockean el objeto producto entero con todas sus propiedades, entre ellas, este registro)
+  //   const stkOrigen = producto.stock.find(
+  //     (element) =>
+  //       element.nombre == producto.nombre &&
+  //       element.sucursal == sucursalOrigen.nombre
+  //   );
+  //   //Cuando ya tenemos la sucursal dede donde queremos sacar el producto, le restamos la cantidad
+  //   //deseada al mismo
+  //   if (stkOrigen) {
+  //     stkOrigen.cantidad -= cantidad;
+  //   }
+  //   //Esta constante va a rastrar la sucursal de destino
+  //   const sktDestino = producto.stock.find(
+  //     (element) =>
+  //       element.nombre == producto.nombre &&
+  //       element.sucursal == sucursalDestino.nombre
+  //   );
+  //   //Una vez que la encontramos, agregamos la cantidad
+  //   if (sktDestino) {
+  //     sktDestino.cantidad += cantidad;
+  //   }
+  // }
 
   //AGREGAR EMPLEADO
   agregarEmpleado(nombre, apellido, edad, dni, email) {
@@ -163,9 +217,11 @@ class Cliente {
   }
 }
 
-module.exports = {
-  Producto,
-  Sucursal,
-  Empleado,
-  Cliente,
-};
+// module.exports = {
+//   Producto,
+//   Sucursal,
+//   Empleado,
+//   Cliente,
+// };
+
+export { Sucursal, Producto, Empleado, Cliente };
