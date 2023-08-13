@@ -16,19 +16,19 @@ class Sucursal {
 
   //VER EL STOCK DE MERCADERIA
 
-  verStock(sucursal) {
-    sucursal.items.forEach((element) => console.log(element));
+  verStock() {
+    this.items.forEach((element) => console.log(element));
   }
 
   //NUEVA FUNCION DE INGRESO DE MERCADERIA EN DESARROLLO
   //ingresa stock en la sucursal, y en el producto mismo.
 
-  ingreso(producto, cant, suc) {
+  ingreso(producto, cant) {
     this.stockTotal += cant;
 
     const productoStock = producto.stock.find(
       (element) =>
-        element.nombre === producto.nombre && element.sucursal === suc.nombre
+        element.nombre === producto.nombre && element.sucursal === this.nombre
     );
 
     if (productoStock) {
@@ -36,14 +36,14 @@ class Sucursal {
     }
 
     //se itera dentro del stock de la sucursal buscando si el producto ya existe
-    const productoExistente = suc.items.find(
+    const productoExistente = this.items.find(
       (element) => element.nombre === producto.nombre
     );
 
     if (!productoExistente) {
-      suc.items.push(producto);
+      this.items.push(producto);
       producto.stock.push({
-        sucursal: suc.nombre,
+        sucursal: this.nombre,
         nombre: producto.nombre,
         cantidad: cant,
       });
@@ -86,7 +86,7 @@ class Sucursal {
         element.nombre == producto.nombre &&
         element.sucursal == sucursalOrigen.nombre
     );
-    //Cuando ya tenemos la sucursal dede donde queremos sacar el producto, le restamos la cantidad
+    //Cuando ya tenemos la sucursal desde donde queremos sacar el producto, le restamos la cantidad
     //deseada al mismo, PERO, si la cantidad que queremos sacar es mayor a la que tiene el producto
     //tiramos un error de stock insuficiente. De lo contrario continuamos la ejecucion
     if (stkOrigen) {
@@ -94,7 +94,7 @@ class Sucursal {
         console.log(`Stock insuficiente. El stock es de ${stkOrigen.cantidad}`);
       } else {
         stkOrigen.cantidad -= cantidad;
-        //Esta constante va a rastrar la sucursal de destino (EN EL PRODUCTO)
+        //Esta constante va a rastrear la sucursal de destino (EN EL PRODUCTO)
         const sktDestino = producto.stock.find(
           (element) =>
             element.nombre == producto.nombre &&
@@ -117,30 +117,6 @@ class Sucursal {
     } //else no se encontro el producto?? osea, no hubo un ingreso del prodcuto en el stock
     //de la suc origen
   }
-  // movimiento(producto, cantidad, sucursalOrigen, sucursalDestino) {
-  //   //Rastramos la sucursal donde se encuentra el proucto (origen) (Solo el prod lleva este registro)
-  //   //(Las sucursales solo stockean el objeto producto entero con todas sus propiedades, entre ellas, este registro)
-  //   const stkOrigen = producto.stock.find(
-  //     (element) =>
-  //       element.nombre == producto.nombre &&
-  //       element.sucursal == sucursalOrigen.nombre
-  //   );
-  //   //Cuando ya tenemos la sucursal dede donde queremos sacar el producto, le restamos la cantidad
-  //   //deseada al mismo
-  //   if (stkOrigen) {
-  //     stkOrigen.cantidad -= cantidad;
-  //   }
-  //   //Esta constante va a rastrar la sucursal de destino
-  //   const sktDestino = producto.stock.find(
-  //     (element) =>
-  //       element.nombre == producto.nombre &&
-  //       element.sucursal == sucursalDestino.nombre
-  //   );
-  //   //Una vez que la encontramos, agregamos la cantidad
-  //   if (sktDestino) {
-  //     sktDestino.cantidad += cantidad;
-  //   }
-  // }
 
   //AGREGAR EMPLEADO
   agregarEmpleado(nombre, apellido, edad, dni, email) {
@@ -169,6 +145,19 @@ class Sucursal {
     });
 
     this.cliente.push(cliente);
+  }
+
+  ////////////////FILTRO/////////////////
+
+  filtro(propiedades, busqueda) {
+    const filter = this.items.filter(
+      (element) => element[propiedades] == busqueda
+    );
+    if (filter.length == 0) {
+      console.log('No se encontró el producto.');
+    } else {
+      console.log(filter);
+    }
   }
 }
 

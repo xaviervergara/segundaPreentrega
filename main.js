@@ -1,8 +1,13 @@
 // const { Producto, Sucursal, Empleado, Cliente } = require('./objects');
-
 import { Sucursal, Producto, Empleado, Cliente } from './objects.js';
 
-//INSTANCIAS PRODUCTOS
+///////////////////////////////////////////////////////////////////
+///////////////////INSTANCIAS DE PRODUCTOS////////////////////////
+/////////////////////////////////////////////////////////////////
+
+////////////////////////////////
+////CATEGORIA: ROPA DE CAMA////
+//////////////////////////////
 
 const sabPrimavera = new Producto({
   articulo: 'sabanas',
@@ -17,6 +22,23 @@ const sabPrimavera = new Producto({
   vendido: 0,
 });
 
+const acAniMarinos = new Producto({
+  articulo: 'acolchados',
+  codigo: '20021U08227%CC',
+  nombre: 'acAniMarinos',
+  precio: 16495,
+  medida: '1pza',
+  categoria: 'ropa de cama',
+  color: 'cc',
+  composicion: '100% poliester',
+  stock: [],
+  vendido: 0,
+});
+
+////////////////////////
+////CATEGORIA: BAÑO////
+//////////////////////
+
 const toaLisa = new Producto({
   articulo: 'toallas',
   codigo: '30012E76394%KN',
@@ -24,13 +46,88 @@ const toaLisa = new Producto({
   precio: 8792,
   medida: '70 x 140 cm / 44 x 80 cm',
   categoria: 'baño',
-  color: 'KN',
+  color: 'kn',
   composicion: '100% algodon',
   stock: [],
   vendido: 0,
 });
 
-//INSTANCIAS DE SUCURSALES
+const cortCañamo = new Producto({
+  articulo: 'cortinas',
+  codigo: '50201Z08151%KN',
+  nombre: 'cortCañamo',
+  precio: 13993,
+  medida: '185 x 185 cm',
+  categoria: 'baño',
+  color: 'kn',
+  composicion: '55% cáñamo, 45% algodón',
+  stock: [],
+  vendido: 0,
+});
+
+//////////////////////////
+////CATEGORIA: COCINA////
+////////////////////////
+
+const mantRayaDesparejas = new Producto({
+  articulo: 'manteles',
+  codigo: '51311G08136%A',
+  nombre: 'mantRayaDesparejas',
+  precio: 10392,
+  medida: '185 x 185 cm',
+  categoria: 'cocina',
+  color: 'a',
+  composicion: 'poliester cuerina',
+  stock: [],
+  vendido: 0,
+});
+
+const secaPlatBamboo = new Producto({
+  articulo: 'seca platos',
+  codigo: '86001Z60557%KN',
+  nombre: 'secaPlatBamboo',
+  precio: 14990,
+  medida: '40 x 23 x 25 cm',
+  categoria: 'cocina',
+  color: 'kn',
+  composicion: 'bamboo',
+  stock: [],
+  vendido: 0,
+});
+
+////////////////////////
+////CATEGORIA: DECO////
+//////////////////////
+
+const portMacBamboo = new Producto({
+  articulo: 'porta macetas',
+  codigo: '86061U00033%KN',
+  nombre: 'portMacBamboo',
+  precio: 7499,
+  medida: '15 x 15 x 15 cm',
+  categoria: 'deco',
+  color: 'kn',
+  composicion: 'bamboo',
+  stock: [],
+  vendido: 0,
+});
+
+const espIrregular = new Producto({
+  articulo: 'espejos',
+  codigo: '86061U00108%FD',
+  nombre: 'espIrregular',
+  precio: 22990,
+  medida: ' 60 x 58.5 x 1 cm',
+  categoria: 'deco',
+  color: 'fd',
+  composicion: 'metal',
+  stock: [],
+  vendido: 0,
+});
+
+///////////////////////////////////////////////////////////////////
+///////////////////INSTANCIAS DE SUCURSALES///////////////////////
+/////////////////////////////////////////////////////////////////
 
 const sucCapFederal = new Sucursal({
   nombre: 'sucCapFederal',
@@ -50,38 +147,65 @@ const sucAvellaneda = new Sucursal({
   cliente: [],
 });
 
-//INSTANCIAS DE EMPLEADOS
+///////////////////////////////////////////////////////////////////
+///////////////////INSTANCIAS DE EMPLEADOS////////////////////////
+/////////////////////////////////////////////////////////////////
 
 // (SE AGREGAN CON METODO AGREGARempleado DESDE LA SUCURSAL)
 
-//INSTANCIAS DE CLIENTES
+///////////////////////////////////////////////////////////////////
+///////////////////INSTANCIAS DE CLIENTES/////////////////////////
+/////////////////////////////////////////////////////////////////
 
 // (SE AGREGAN CON METODO AGREGARcliente DESDE LA SUCURSAL)
 
-///////////////////////////////////////////////
-/////////////////EJECUCIONES///////////////////
-///////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////
+///////////////////////////EJECUCIONES////////////////////////////
+/////////////////////////////////////////////////////////////////
 
-/////INGRESOS MERCADERIA CAPITAL FEDERAL//////
+//////////////////////////////////////////////////////////////////////
+/////////////////INGRESO DE MERCADERIA CAPITAL FEDERAL////////////////
 
-//sucCapFederal.ingreso(toaLisa, 100, 'capital');
-sucAvellaneda.ingreso(toaLisa, 100, sucAvellaneda);
-sucAvellaneda.ingreso(toaLisa, 100, sucAvellaneda);
-// sucAvellaneda.venta(toaLisa, 50, 0);
-// console.log(toaLisa);
-sucCapFederal.ingreso(toaLisa, 0, sucCapFederal);
-sucCapFederal.movimiento(toaLisa, 100, sucAvellaneda, sucCapFederal);
-console.log(toaLisa);
+sucCapFederal.ingreso(sabPrimavera, 10);
+sucCapFederal.ingreso(acAniMarinos, 10);
+sucCapFederal.ingreso(toaLisa, 10);
+sucCapFederal.ingreso(cortCañamo, 10);
+sucCapFederal.ingreso(mantRayaDesparejas, 10);
+sucCapFederal.ingreso(secaPlatBamboo, 10);
+sucCapFederal.ingreso(portMacBamboo, 10);
+sucCapFederal.ingreso(espIrregular, 10);
 
-////////INGRESOS MERCADERIA AVELLANEDA////////
+//////////////////////////////////////////////////////////////////////
+//////////////MOVIMENTO MERCADERIA DE CAPITAL A AVELLANEDA////////////
 
-////VENTAS MERCADERIA////
+sucCapFederal.movimiento(sabPrimavera, 5, sucCapFederal, sucAvellaneda);
+sucCapFederal.movimiento(acAniMarinos, 5, sucCapFederal, sucAvellaneda);
+sucCapFederal.movimiento(toaLisa, 5, sucCapFederal, sucAvellaneda);
+sucCapFederal.movimiento(cortCañamo, 5, sucCapFederal, sucAvellaneda);
+sucCapFederal.movimiento(mantRayaDesparejas, 5, sucCapFederal, sucAvellaneda);
+sucCapFederal.movimiento(secaPlatBamboo, 5, sucCapFederal, sucAvellaneda);
+sucCapFederal.movimiento(portMacBamboo, 5, sucCapFederal, sucAvellaneda);
+sucCapFederal.movimiento(espIrregular, 5, sucCapFederal, sucAvellaneda);
 
-// sucCapFederal.venta(sabPrimavera, 50, 50);
-// sucCapFederal.venta(toaLisa, 20, 0);
+//////////////////////////////////////////////////////////////////////
+/////////////////INGRESOS MERCADERIA AVELLANEDA//////////////////////
 
-////AGREGAR EMPLEADOS CAPITALFEDERAL////
-//ramiro
+//////////////////////////////////////////////////////////////////////
+/////////////////VENTA DE MERCADERIA EN CAPITAL//////////////////////
+
+sucCapFederal.venta(sabPrimavera, 5, 0);
+sucCapFederal.venta(acAniMarinos, 5, 0);
+sucCapFederal.venta(toaLisa, 5, 0);
+sucCapFederal.venta(cortCañamo, 5, 0);
+sucCapFederal.venta(mantRayaDesparejas, 5, 0);
+sucCapFederal.venta(secaPlatBamboo, 5, 0);
+sucCapFederal.venta(portMacBamboo, 5, 0);
+sucCapFederal.venta(espIrregular, 5, 0);
+
+//////////////////////////////////////////////////////////////////////
+/////////////////INGRESO DE EMPLEADOS CAPITAL FEDERAL/////////////////
+
+/////Ramiro////
 sucCapFederal.agregarEmpleado(
   'Ramiro',
   'Medina,',
@@ -89,7 +213,7 @@ sucCapFederal.agregarEmpleado(
   48456984,
   'rmedina@gmail.com'
 );
-//andrea
+////Andrea////
 sucCapFederal.agregarEmpleado(
   'Andrea',
   'Giugliotta',
@@ -108,7 +232,12 @@ sucCapFederal.ingresarCliente(
   'Buenos Aires'
 );
 
-////MONITOREO SUCURSALES////
+//////////////////////////////////////////////////////////////////////
+////////////////////////MONITOREO SUCURSALES/////////////////////////
+////////////////////////////////////////////////////////////////////
+
+sucCapFederal.verStock();
+sucAvellaneda.filtro('categoria', 'baño');
 
 ///////////////////////////////////////////////
 /////////////FUNCIONES A INCORPORAR///////////
@@ -136,21 +265,9 @@ sucCapFederal.ingresarCliente(
 //DESDE LA CAJA SE INGRESA EL CLIENTE, Y SE ENLAZA CON ESE CARRITO.
 //CLIENTE ACUMULA PUNTOS?
 //AGREGAR COLORES LITERALES
-//
-//
-//
-//RECORRER EL STOCK DEL ITEM CON UN FOR EACH
-//SI LA SUCURSAL COINCIDE, AGREGAR CANTIDAD
-//A ESA SUCURSAL (SI ELEMENTO.SUCURSAL == SUC) ELEMENTO.CANTIDAD += CANT
-
-//QUIZAS INSTANCIANDO LOS OBJETOS CON CONST, LLENAMOS EL ARRAY DE VARIABLES Y SE PUEDE METER UN GRAN INCLUDES(VARIABLE)
-//DESPUES PARA VER EL STOCK SE HACE UNA FUNCION ACORDE Y CHAU
-//EL OBJETO EN CUESTION SERIA {SUCURSAL:ASDASD, CANTIDAD:123}
-
-//FUNCIONAMIENTO DE LA FUNCION MOVIMIENTO DE MERCADERIA
-//PARAMETROS: PRODUCTO QUE QUEREMOS MOVER, SUCURSAL DE LA QUE VAMOS
-//A SACAR EL PRODUCTO Y POR ULTIMO LA CANTIDAD.
-//
 
 //IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE//
 //CHEQUEAR USO INNECESARIO DE PARAMETROS SUCURSAL, HACER USO DEL THIS.NOMBRE DE LA SUCURSAL PARA EVITAR LA REDUNDANCIA
+
+//LA SIGUIENTE FUNCIONALIDAD ES RESOLVER LA COMPRA CON UN CARRITO, ENTENDER DE CUAL ES LA MANERA MAS FUNCIONAL
+//DESDE EL PUNTO DE VISTA DEL CLIENTE QUIZAS Y QUE TENGA SENTIDO EN GENERAL PARA EL SISTEMA
