@@ -1,6 +1,7 @@
 body {
   background-color: rgb(36, 38, 39);
   color: white;
+  font-family: monospace;
 }
 
 /* ///////////////
@@ -8,7 +9,7 @@ body {
 //////////////// */
 nav {
   display: flex;
-  height: 2.5rem;
+  height: 2.5em;
   background-color: rgba(255, 173, 79, 0.705);
   justify-content: space-between;
   align-items: center;
@@ -26,11 +27,12 @@ nav {
   background-color: transparent;
   border: none;
   padding: 0;
-  margin: 0.5;
 }
+
 .menuButton:hover {
   background-color: transparent;
 }
+
 .menuButton:active {
   background-color: transparent !important;
 }
@@ -41,10 +43,12 @@ nav {
 
 .offcanvas-header {
   background-color: rgb(255, 244, 230);
-  height: 3.5rem;
+  height: 2.5rem;
 }
+
 .offcanvas {
   background-color: rgba(255, 255, 255, 0.705);
+  width: 11em !important;
 }
 
 .posDescripcion {
@@ -62,6 +66,7 @@ nav {
   justify-content: center;
   background-color: rgba(255, 255, 255, 0.705);
 }
+
 .posDescripcion-content > p {
   margin: 0;
   padding: 0;
@@ -71,7 +76,6 @@ nav {
 
 /* MAIN DISPLAY */
 .mainDisplay {
-  height: 3em;
   display: flex;
   justify-content: center;
   margin-top: 2em;
@@ -87,23 +91,137 @@ nav {
   padding: 0;
   font-size: 1.5em;
   color: rgb(36, 38, 39);
-  border: 1px solid white;
-  color: rgb(36, 38, 39);
+  /* border: 1px solid white; */
   width: 80%;
   background-color: rgba(255, 255, 255, 0.705);
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
   align-items: flex-start;
-  height: 10em;
+  height: 8em;
+  /* border: 1px solid red; */
 }
 
-.form-select {
+/* COLUMNA EN LA QUE ESTOY TRABAJANDO ACTUALMENTE */
+.firstRow {
+  margin-top: 0.3em;
+  padding: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  /* border: 1px solid black; */
+  width: 100%;
+}
+
+/* BOTON SUCURSAL Y BOTON STOCK */
+.sucursalButton,
+.stockButton {
   background-color: rgb(36, 38, 39);
   color: rgba(255, 255, 255, 0.705);
   margin: 1em;
-  width: 25%;
   border: none;
 }
-.form-select:focus {
+
+.sucursalButton {
+  width: 25%;
+}
+
+.sucursalButton:focus,
+.stockButton:focus {
   box-shadow: none;
+}
+
+.stockButton {
+  width: 25%;
+}
+
+/* GRUPO DE BOTON CODIGO CON BOTON DE LUPA */
+
+.grupoCodigoTxt {
+  width: 25%;
+}
+
+.buttCodigo,
+.txtCodigo {
+  margin: 1em;
+}
+
+/* INPUT TEXTO CODIGO */
+
+.txtCodigo {
+  background-color: rgb(36, 38, 39);
+  color: rgba(255, 255, 255, 0.705);
+}
+
+.txtCodigo:focus {
+  border: none;
+  box-shadow: none;
+  background-color: rgb(36, 38, 39);
+  color: rgba(255, 255, 255, 0.705);
+}
+
+.txtCodigo::placeholder {
+  color: rgba(255, 255, 255, 0.705);
+}
+
+/* BOTON LUPA CODIGO */
+.codeSearchIc {
+  color: rgb(36, 38, 39);
+}
+
+/* INPUT TEXT DE COLOR */
+
+.txtColor {
+  margin: 1em;
+  width: 25%;
+  background-color: rgb(36, 38, 39);
+  color: rgba(255, 255, 255, 0.705);
+}
+
+.txtColor:focus {
+  background-color: rgb(36, 38, 39);
+  color: rgba(255, 255, 255, 0.705);
+  box-shadow: none;
+  border: none;
+}
+
+.txtColor::placeholder {
+  color: rgba(255, 255, 255, 0.705);
+}
+
+/* SEGUNDA FILA */
+
+.secondRow {
+  display: flex;
+  justify-content: flex-start;
+  width: 100%;
+  align-items: center;
+}
+
+.filtroButton {
+  margin: 1em;
+  width: 75%;
+  background-color: rgb(36, 38, 39);
+  color: rgba(255, 255, 255, 0.705);
+  border: none;
+  height: 55%;
+  box-shadow: none !important;
+}
+
+.resetButton {
+  height: 55%;
+  width: 10%;
+  background-color: rgb(36, 38, 39);
+  border: none;
+}
+
+.resetButton:focus {
+  border: none;
+}
+
+.resetButton:hover {
+  background-color: rgb(36, 38, 39);
+}
+
+.resetButton:active {
+  background-color: rgba(36, 38, 39, 0.716) !important;
 }
