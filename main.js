@@ -10,9 +10,11 @@ import { Sucursal, Producto, Empleado, Cliente } from './objects.js';
 //////////////////////////////
 
 const sabPrimavera = new Producto({
+  id: '0001',
   articulo: 'sabanas',
   codigo: '10113T08278%ME',
   nombre: 'sabPrimavera',
+  descripcion: 'SAB-TWIN C/FAJA/VIVO ALG PEI PRIMAVERA',
   precio: 33000,
   medida: 'twin',
   categoria: 'ropa de cama',
@@ -23,9 +25,11 @@ const sabPrimavera = new Producto({
 });
 
 const acAniMarinos = new Producto({
+  id: '0002',
   articulo: 'acolchados',
   codigo: '20021U08227%CC',
   nombre: 'acAniMarinos',
+  descripcion: 'ACOL-1PL REV ANIMALES MARINOS',
   precio: 16495,
   medida: '1pza',
   categoria: 'ropa de cama',
@@ -40,9 +44,11 @@ const acAniMarinos = new Producto({
 //////////////////////
 
 const toaLisa = new Producto({
+  id: '0003',
   articulo: 'toallas',
   codigo: '30012E76394%KN',
   nombre: 'toaLisa',
+  descripcion: 'JGO T-44X80 70X140 LISA 400G CLASSIC TDF',
   precio: 8792,
   medida: '70 x 140 cm / 44 x 80 cm',
   categoria: 'baño',
@@ -53,9 +59,11 @@ const toaLisa = new Producto({
 });
 
 const cortCañamo = new Producto({
+  id: '0004',
   articulo: 'cortinas',
   codigo: '50201Z08151%KN',
   nombre: 'cortCañamo',
+  descripcion: 'CORT-BANO C/P C/OJAL CAÑAMO',
   precio: 13993,
   medida: '185 x 185 cm',
   categoria: 'baño',
@@ -70,9 +78,11 @@ const cortCañamo = new Producto({
 ////////////////////////
 
 const mantRayaDesparejas = new Producto({
+  id: '0005',
   articulo: 'manteles',
   codigo: '51311G08136%A',
   nombre: 'mantRayaDesparejas',
+  descripcion: 'CARP.RECT-2.00 ST POL CUERINA RAYAS DESPAREJA',
   precio: 10392,
   medida: '185 x 185 cm',
   categoria: 'cocina',
@@ -83,9 +93,11 @@ const mantRayaDesparejas = new Producto({
 });
 
 const secaPlatBamboo = new Producto({
+  id: '0006',
   articulo: 'seca platos',
   codigo: '86001Z60557%KN',
   nombre: 'secaPlatBamboo',
+  descripcion: 'NT-SECAPLATOS BAMBOO CH',
   precio: 14990,
   medida: '40 x 23 x 25 cm',
   categoria: 'cocina',
@@ -100,9 +112,11 @@ const secaPlatBamboo = new Producto({
 //////////////////////
 
 const portMacBamboo = new Producto({
+  id: '0007',
   articulo: 'porta macetas',
   codigo: '86061U00033%KN',
   nombre: 'portMacBamboo',
+  descripcion: 'NT-PORTA MACETA BAMBOO CH',
   precio: 7499,
   medida: '15 x 15 x 15 cm',
   categoria: 'deco',
@@ -113,9 +127,11 @@ const portMacBamboo = new Producto({
 });
 
 const espIrregular = new Producto({
+  id: '0008',
   articulo: 'espejos',
   codigo: '86061U00108%FD',
   nombre: 'espIrregular',
+  descripcion: 'NT-ESPEJO FORMA VARIADA MARCO METAL',
   precio: 22990,
   medida: ' 60 x 58.5 x 1 cm',
   categoria: 'deco',
@@ -272,3 +288,33 @@ sucAvellaneda.filtro('categoria', 'baño');
 //LA SIGUIENTE FUNCIONALIDAD ES RESOLVER LA COMPRA CON UN CARRITO, ENTENDER DE CUAL ES LA MANERA MAS FUNCIONAL
 //DESDE EL PUNTO DE VISTA DEL CLIENTE QUIZAS Y QUE TENGA SENTIDO EN GENERAL PARA EL SISTEMA
 // Abre y cierra el menú de opciones personalizado
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////MANIPULACION DEL DOM/////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+//HACER CAMBIO DE TEMA LIGHT DARKMODE PARA USAR JSON
+
+// IF SUCURSAL CAPITAL FEDERAL SELECTED
+
+//IZQUIERDA
+
+const prodMaster = document.getElementById('master');
+const prodNombre = document.getElementById('nombre');
+const prodCodigo = document.getElementById('codigo');
+const prodDescripcion = document.getElementById('descripcion');
+
+prodMaster.innerText = sabPrimavera.id;
+prodNombre.innerText = sabPrimavera.nombre;
+prodCodigo.innerText = sabPrimavera.codigo;
+prodDescripcion.innerText = sabPrimavera.descripcion;
+
+// DERECHA
+
+const ProdCantidad = document.getElementById('cantidad');
+
+ProdCantidad.innerText = sabPrimavera.stock[0].cantidad;
+
+//SI SE SELECCIONA LA SUCURSAL, SE DEBE PODER ACCEDER A SUS ITEMS, Y MOSTRARLOS TODOS
+//CON ESTE FORMATO RECTANGULAR GRIS A CADA UNO DE ELLOS, HAY QUE BUSCAR LA MANERA DE QUE
+//SE PUEDA MOSTRAR LA CANTIDAD DEL PRODUCTO LOGICAMENTE -NO MANUALMENTE COMO ACÁ-

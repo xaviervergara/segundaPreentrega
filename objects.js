@@ -165,9 +165,11 @@ class Sucursal {
 
 class Producto {
   constructor(info) {
+    this.id = info.id;
     this.articulo = info.articulo;
     this.codigo = info.codigo;
     this.nombre = info.nombre;
+    this.descripcion = info.descripcion;
     this.precio = info.precio;
     this.medida = info.medida;
     this.categoria = info.categoria;

@@ -74,7 +74,7 @@ nav {
   color: rgb(36, 38, 39);
 }
 
-/* MAIN DISPLAY */
+/* /////////////////////MAIN DISPLAY////////////////////// */
 .mainDisplay {
   display: flex;
   justify-content: center;
@@ -82,7 +82,8 @@ nav {
   align-items: flex-start;
   /* ACTIVAR BORDE */
   /* border: 1px solid white; */
-  height: 20em;
+  height: 12.5em;
+  /* border: 1px solid yellow; */
 }
 
 .mainDisplay > .mainDisplay-content {
@@ -224,4 +225,40 @@ nav {
 
 .resetButton:active {
   background-color: rgba(36, 38, 39, 0.716) !important;
+}
+
+/* PRODU-DISPLAY */
+
+/* CONTENEDOR PADRE */
+.produDisplay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* border: 1px solid red; */
+  height: 5em;
+}
+
+/* MAIN DISPLAY */
+.mainContainer {
+  background-color: rgba(255, 255, 255, 0.705);
+  width: 80%;
+  height: 4em;
+  align-items: center;
+  border-radius: 5px;
+}
+
+/* IZQUIERDA PADRE */
+.leftContainer {
+  width: 80%;
+  /* border: 1px solid white; */
+  align-items: center;
+  color: rgb(36, 38, 39);
+}
+
+/* DERECHA PADRE */
+.rightContainer {
+  width: 20%;
+  /* border: 1px solid white; */
+  align-items: center;
+  color: rgb(36, 38, 39);
 }
