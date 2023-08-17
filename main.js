@@ -194,18 +194,12 @@ sucCapFederal.ingreso(espIrregular, 10);
 //////////////////////////////////////////////////////////////////////
 //////////////MOVIMENTO MERCADERIA DE CAPITAL A AVELLANEDA////////////
 
-sucCapFederal.movimiento(sabPrimavera, 5, sucCapFederal, sucAvellaneda);
-sucCapFederal.movimiento(acAniMarinos, 5, sucCapFederal, sucAvellaneda);
-sucCapFederal.movimiento(toaLisa, 5, sucCapFederal, sucAvellaneda);
-sucCapFederal.movimiento(cortCañamo, 5, sucCapFederal, sucAvellaneda);
-sucCapFederal.movimiento(mantRayaDesparejas, 5, sucCapFederal, sucAvellaneda);
-sucCapFederal.movimiento(secaPlatBamboo, 5, sucCapFederal, sucAvellaneda);
-sucCapFederal.movimiento(portMacBamboo, 5, sucCapFederal, sucAvellaneda);
-sucCapFederal.movimiento(espIrregular, 5, sucCapFederal, sucAvellaneda);
-
 //////////////////////////////////////////////////////////////////////
 /////////////////INGRESOS MERCADERIA AVELLANEDA//////////////////////
-
+sucAvellaneda.ingreso(mantRayaDesparejas, 10);
+sucAvellaneda.ingreso(secaPlatBamboo, 10);
+sucAvellaneda.ingreso(portMacBamboo, 10);
+sucAvellaneda.ingreso(espIrregular, 10);
 //////////////////////////////////////////////////////////////////////
 /////////////////VENTA DE MERCADERIA EN CAPITAL//////////////////////
 
@@ -299,22 +293,107 @@ sucAvellaneda.filtro('categoria', 'baño');
 
 //IZQUIERDA
 
-const prodMaster = document.getElementById('master');
-const prodNombre = document.getElementById('nombre');
-const prodCodigo = document.getElementById('codigo');
-const prodDescripcion = document.getElementById('descripcion');
+// const prodMaster = document.getElementById('master');
+// const prodNombre = document.getElementById('nombre');
+// const prodCodigo = document.getElementById('codigo');
+// const prodDescripcion = document.getElementById('descripcion');
 
-prodMaster.innerText = sabPrimavera.id;
-prodNombre.innerText = sabPrimavera.nombre;
-prodCodigo.innerText = sabPrimavera.codigo;
-prodDescripcion.innerText = sabPrimavera.descripcion;
+// prodMaster.innerText = sabPrimavera.id;
+// prodNombre.innerText = sabPrimavera.nombre;
+// prodCodigo.innerText = sabPrimavera.codigo;
+// prodDescripcion.innerText = sabPrimavera.descripcion;
 
-// DERECHA
+// // DERECHA
 
-const ProdCantidad = document.getElementById('cantidad');
+// const ProdCantidad = document.getElementById('cantidad');
 
-ProdCantidad.innerText = sabPrimavera.stock[0].cantidad;
+// ProdCantidad.innerText = sabPrimavera.stock[0].cantidad;
 
 //SI SE SELECCIONA LA SUCURSAL, SE DEBE PODER ACCEDER A SUS ITEMS, Y MOSTRARLOS TODOS
 //CON ESTE FORMATO RECTANGULAR GRIS A CADA UNO DE ELLOS, HAY QUE BUSCAR LA MANERA DE QUE
 //SE PUEDA MOSTRAR LA CANTIDAD DEL PRODUCTO LOGICAMENTE -NO MANUALMENTE COMO ACÁ-
+///////
+
+// RECORRE ITEMS (STOCK) DE LA SUCURSAL DE CAPI
+
+const selectElement = document.getElementById('sucursalSelect');
+
+selectElement.addEventListener('change', function () {
+  // Obtén el valor seleccionado
+  const selectedValue = selectElement.value;
+
+  // Aquí puedes hacer lo que necesites en función del valor seleccionado
+  if (selectedValue === '1') {
+    for (const key of sucCapFederal.items) {
+      let seccion = document.createElement('section');
+      seccion.className = 'produDisplay';
+      document.body.append(seccion);
+      ///////
+      let contPrincipal = document.createElement('div');
+      contPrincipal.className = 'mainContainer row';
+      seccion.appendChild(contPrincipal);
+      //////
+      let contIzquierda = document.createElement('div');
+      contIzquierda.className = 'leftContainer col-8';
+      contPrincipal.appendChild(contIzquierda);
+      // ADENTRO
+      let izqAdentro = document.createElement('div');
+      izqAdentro.className = 'leftInside row';
+      contIzquierda.appendChild(izqAdentro);
+
+      //////
+      let contDerecha = document.createElement('div');
+      contDerecha.className = 'rightContainer col-4';
+      contPrincipal.appendChild(contDerecha);
+      // ADENTRO
+      let derAdentro = document.createElement('div');
+      derAdentro.className = 'rightInside row';
+      contDerecha.appendChild(derAdentro);
+
+      izqAdentro.innerHTML = `<div class="left_child col-1">  ${key.id}</div>
+                              <div class="left_child col-2">  ${key.nombre}</div>
+                              <div class="left_child col-2">  ${key.codigo}</div>
+                              <div class="left_child col-6">  ${key.descripcion}</div>`;
+
+      derAdentro.innerHTML = `<div class="right_child col-6"> ${key.cantidad}</div>
+                              <div class="right_child col-6"> ${key.vendido}</div>`;
+    }
+  } else if (selectedValue === '2') {
+    for (const key of sucAvellaneda.items) {
+      let seccion = document.createElement('section');
+      seccion.className = 'produDisplay';
+      document.body.append(seccion);
+      ///////
+      let contPrincipal = document.createElement('div');
+      contPrincipal.className = 'mainContainer row';
+      seccion.appendChild(contPrincipal);
+      //////
+      let contIzquierda = document.createElement('div');
+      contIzquierda.className = 'leftContainer col-8';
+      contPrincipal.appendChild(contIzquierda);
+      // ADENTRO
+      let izqAdentro = document.createElement('div');
+      izqAdentro.className = 'leftInside row';
+      contIzquierda.appendChild(izqAdentro);
+
+      //////
+      let contDerecha = document.createElement('div');
+      contDerecha.className = 'rightContainer col-4';
+      contPrincipal.appendChild(contDerecha);
+      // ADENTRO
+      let derAdentro = document.createElement('div');
+      derAdentro.className = 'rightInside row';
+      contDerecha.appendChild(derAdentro);
+
+      izqAdentro.innerHTML = `<div class="left_child col-1">  ${key.id}</div>
+                              <div class="left_child col-2">  ${key.nombre}</div>
+                              <div class="left_child col-2">  ${key.codigo}</div>
+                              <div class="left_child col-6">  ${key.descripcion}</div>`;
+
+      derAdentro.innerHTML = `<div class="right_child col-6"> ${key.cantidad}</div>
+                              <div class="right_child col-6"> ${key.vendido}</div>`;
+    }
+  }
+});
+
+// HACER UNA FUNCION QUE MUESTRE EN VALOR NUMBER LA CANTIDAD DE STOCK EN SUCURSAL

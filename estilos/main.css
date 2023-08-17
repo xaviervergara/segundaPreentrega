@@ -234,8 +234,8 @@ nav {
   display: flex;
   justify-content: center;
   align-items: center;
-  /* border: 1px solid red; */
   height: 5em;
+  /* border: 1px solid red; */
 }
 
 /* MAIN DISPLAY */
@@ -245,20 +245,21 @@ nav {
   height: 4em;
   align-items: center;
   border-radius: 5px;
+  /* border: 1px solid red; */
 }
 
 /* IZQUIERDA PADRE */
 .leftContainer {
   width: 80%;
-  /* border: 1px solid white; */
   align-items: center;
   color: rgb(36, 38, 39);
+  /* border: 1px solid red; */
 }
 
 /* DERECHA PADRE */
 .rightContainer {
   width: 20%;
-  /* border: 1px solid white; */
   align-items: center;
   color: rgb(36, 38, 39);
+  /* border: 1px solid red; */
 }
