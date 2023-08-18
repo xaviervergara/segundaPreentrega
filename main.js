@@ -326,3 +326,5 @@ selectElement.addEventListener('change', function () {
     seleccionarSucursal(sucAvellaneda);
   }
 });
+
+// HACER UNA FUNCION QUE MUESTRE EN VALOR NUMBER LA CANTIDAD DE STOCK EN SUCURSAL
