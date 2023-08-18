@@ -249,150 +249,81 @@ sucCapFederal.ingresarCliente(
 sucCapFederal.verStock();
 sucAvellaneda.filtro('categoria', 'baño');
 
-///////////////////////////////////////////////
-/////////////FUNCIONES A INCORPORAR///////////
-
-//ARMAR FILTROS DE BUSQUEDA SUEGUN CATEGORIAS, CODIGOS, ARTICULOS Y SI SE QUIERE, POR PRECIO (MAYOR A, MENOR QUE BLA BLA)
-//**CREAR UN OBJETO CLIENTE, PARA CUANDO SE HAGA UNA VENTA, DARLE ENTIDAD
-//**AGREGAR UNA FUNCION PROPIA DEL CLIENTE QUE INDIQUE EL FINANCIAMIENTO DEL PRODUCTO
-//**LA SUCURSAL DEBERA TENER UN ARRAY CON EL HISTORIAL DE CLIENTES?
-//**CREAR EMPLEADOS PARA ASIGNARLES LAS VENTAS Y CALCULAR COMISION.(LOS EMPLEADOS METERLOS EN LAS SUCURSALES DE ALGUNA MANERA)
-//**QUE LAS VENTAS SE PUEDAN INGRESAR COMO PAR CLAVE VALOR (ITEM: CANTIDAD)
-//Y DE ESTA MANERA SEA MAS PROLIJA LA VENTA EN CODIGO
-//**QUE LOS INGRESOS SE PUEDAN INGRESAR TAL COMO LAS VENTAS, (CLAVE:VALOR),
-//PARA QUE QUEDE TODO MAS PROLIJO
-//**LOS CLIENTES DEBERIAN PODER DEVOLVER PRODUCTOS A LA SUCURSAL
-//**MOVIMIENTOS DE SUCURSAL A SUCURSAL + HISTORIAL DE MOVIMIENTOS?
-//PARA LA FUNCION DE AGREGAR CLIENTE, CHEQUEAR DESDE DNI SI EXISTE PARA NO CREARLO DOS VECES!
-//**PENSAR EN EL FLUJO DEL PROGRAMA: PRIMERO INGRESA MERCADERÍA, LUEGO INGRESAN LOS EMPLEADOS, LUEGO
-//EL CLIENTE YA PUEDE COMPRAR. DE ALGUNA MANERA DESDE LA SUCURSAL SE DEBE PODER BUSCAR UN PRODUCTO Y PODER VER LAS CANTIDADES DE LAS OTRAS SUCURSALES. SI NO HAY EN EL LOCAL,
-//SE DEBE PODER VENDER EL PRODUCTO DE LA OTRA SUCURSAL
-//** LAMENTABLEMENTE EL CLIENTE SE TIENE QUE PODER CREAR DESDE LA FUNCION DE VENTA. HAY QUE INGENIARSELAS
-//PARA QUE LA VENTA DE UN CLIENTE SE PUEDA INGRESAR TIPO CARRITO, OSEA, QUE SE PUEDAN INGRESAR VARIOS PRODUCTOS DE UNA VEZ,
-//DEBIERA SER QUIZA UN ARRAY CON OBJETOS, COMO LO ES EL OBJETO ITEMS QUE ALMACENA EL STOCK.
-//**CUANDO EL EMPLEADO ATIENDE AL CLIENTE, LLENA UN CARRITO CON TODOS LOS PRODUCTOS
-//CUANDO SE FINALIZA LA ATENCIÓN DEL CLIENTE, EL EMPLEADO MANDA A LA CAJA ESE CARRITO
-//DESDE LA CAJA SE INGRESA EL CLIENTE, Y SE ENLAZA CON ESE CARRITO.
-//CLIENTE ACUMULA PUNTOS?
-//AGREGAR COLORES LITERALES
-
-//IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE////IMPORTANTE//
-//CHEQUEAR USO INNECESARIO DE PARAMETROS SUCURSAL, HACER USO DEL THIS.NOMBRE DE LA SUCURSAL PARA EVITAR LA REDUNDANCIA
-
-//LA SIGUIENTE FUNCIONALIDAD ES RESOLVER LA COMPRA CON UN CARRITO, ENTENDER DE CUAL ES LA MANERA MAS FUNCIONAL
-//DESDE EL PUNTO DE VISTA DEL CLIENTE QUIZAS Y QUE TENGA SENTIDO EN GENERAL PARA EL SISTEMA
-// Abre y cierra el menú de opciones personalizado
-
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////MANIPULACION DEL DOM/////////////////////////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//HACER CAMBIO DE TEMA LIGHT DARKMODE PARA USAR JSON
+/////////////////////////////////////////////////////////////////////////////////////
 
-// IF SUCURSAL CAPITAL FEDERAL SELECTED
-
-//IZQUIERDA
-
-// const prodMaster = document.getElementById('master');
-// const prodNombre = document.getElementById('nombre');
-// const prodCodigo = document.getElementById('codigo');
-// const prodDescripcion = document.getElementById('descripcion');
-
-// prodMaster.innerText = sabPrimavera.id;
-// prodNombre.innerText = sabPrimavera.nombre;
-// prodCodigo.innerText = sabPrimavera.codigo;
-// prodDescripcion.innerText = sabPrimavera.descripcion;
-
-// // DERECHA
-
-// const ProdCantidad = document.getElementById('cantidad');
-
-// ProdCantidad.innerText = sabPrimavera.stock[0].cantidad;
-
-//SI SE SELECCIONA LA SUCURSAL, SE DEBE PODER ACCEDER A SUS ITEMS, Y MOSTRARLOS TODOS
-//CON ESTE FORMATO RECTANGULAR GRIS A CADA UNO DE ELLOS, HAY QUE BUSCAR LA MANERA DE QUE
-//SE PUEDA MOSTRAR LA CANTIDAD DEL PRODUCTO LOGICAMENTE -NO MANUALMENTE COMO ACÁ-
-///////
-
-// RECORRE ITEMS (STOCK) DE LA SUCURSAL DE CAPI
+//A traves de la constante selectElement accedemos al input type "select" el cual nos sirve para cambiar de sucursal en nuestro sitio.
 
 const selectElement = document.getElementById('sucursalSelect');
 
+//Luego le colocamos un eventListener del tipo "change" a nuestro input 'select'. Esto lo que hace
+//es generar un evento cada vez que cambiamos (change) el selector (de capital fed a avellaneda etc) y para cada vez que esto suceda llama a una funcion que se encarga de generar etiquetas html, e incluso aplicarles una clase para asi mostrar los productos de las sucursales.
+
+//La funcion primero que nada elimina el elemento padre en el cual se va a mostrar el producto.
+//Cada vez que registre un cambio de seleccion, primero elimina el elemento. Luego pregunta si la seleccion es capital fed o avellaneda, y cuando es alguna de las dos, muestra la cantidad de elementos que sea nesesaria para mostrar todo el stock. SI SE VUELVE A CAMBIAR LA SUCURSAL, PRIMERO ELIMINA TODO Y REPITE EL PASO ETC.
+
 selectElement.addEventListener('change', function () {
-  // Obtén el valor seleccionado
+  //La constante selectedValue almacena el value (1, 2 o 3) de cada una de las etiquetas options, las cuales contienen las opciones "capital federal", "avellaneda" etc.
+
   const selectedValue = selectElement.value;
 
-  // Aquí puedes hacer lo que necesites en función del valor seleccionado
+  //Si nos fijamos bien en el index, vamos a notar que la etiqueta padre que contiene toda la estructura del elemento que creamos para mostrar cada producto, recibe la clase ".produDisplay". De esta manera es que con el metodo querySelectorAll('.produDisplay') podemos acceder a todas las etiquetas hijas de este elemento e incluso al propio padre y almacenarlas en la constante "secciones" en formato de array.
+
+  const secciones = document.querySelectorAll('.produDisplay');
+
+  //Finalmente a este array "secciones" el cual contiene basicamente todo el elemento generado, le hacemos un forEach y asi vamos eliminando todos los elementos (etiquetas) que contiene. De esta manera eliminamos toda la seccion y sus elementos del DOM.
+
+  secciones.forEach(function (seccion) {
+    seccion.remove();
+  });
+
+  //Si el valor seleccionado es 1 (capital federal) se hace toda la estrucura html para cada uno de los productos en dicha sucursal.items.
+  //Si el valor seleccionado es 2, se hace lo mismo pero con la sucursal de avellaneda
+
+  let seleccionarSucursal = function (sucursal) {
+    for (const key of sucursal.items) {
+      let seccion = document.createElement('section');
+      seccion.className = 'produDisplay';
+      document.body.append(seccion);
+      ///////
+      let contPrincipal = document.createElement('div');
+      contPrincipal.className = 'mainContainer row';
+      seccion.appendChild(contPrincipal);
+      //////
+      let contIzquierda = document.createElement('div');
+      contIzquierda.className = 'leftContainer col-8';
+      contPrincipal.appendChild(contIzquierda);
+      // ADENTRO
+      let izqAdentro = document.createElement('div');
+      izqAdentro.className = 'leftInside row';
+      contIzquierda.appendChild(izqAdentro);
+
+      //////
+      let contDerecha = document.createElement('div');
+      contDerecha.className = 'rightContainer col-4';
+      contPrincipal.appendChild(contDerecha);
+      // ADENTRO
+      let derAdentro = document.createElement('div');
+      derAdentro.className = 'rightInside row';
+      contDerecha.appendChild(derAdentro);
+
+      izqAdentro.innerHTML = `<div class="left_child col-1">  ${key.id}</div>
+                                <div class="left_child col-2">  ${key.nombre}</div>
+                                <div class="left_child col-2">  ${key.codigo}</div>
+                                <div class="left_child col-6">  ${key.descripcion}</div>`;
+
+      derAdentro.innerHTML = `<div class="right_child col-6"> ${key.cantidad}</div>
+                                <div class="right_child col-6"> ${key.vendido}</div>`;
+    }
+  };
+
   if (selectedValue === '1') {
-    for (const key of sucCapFederal.items) {
-      let seccion = document.createElement('section');
-      seccion.className = 'produDisplay';
-      document.body.append(seccion);
-      ///////
-      let contPrincipal = document.createElement('div');
-      contPrincipal.className = 'mainContainer row';
-      seccion.appendChild(contPrincipal);
-      //////
-      let contIzquierda = document.createElement('div');
-      contIzquierda.className = 'leftContainer col-8';
-      contPrincipal.appendChild(contIzquierda);
-      // ADENTRO
-      let izqAdentro = document.createElement('div');
-      izqAdentro.className = 'leftInside row';
-      contIzquierda.appendChild(izqAdentro);
-
-      //////
-      let contDerecha = document.createElement('div');
-      contDerecha.className = 'rightContainer col-4';
-      contPrincipal.appendChild(contDerecha);
-      // ADENTRO
-      let derAdentro = document.createElement('div');
-      derAdentro.className = 'rightInside row';
-      contDerecha.appendChild(derAdentro);
-
-      izqAdentro.innerHTML = `<div class="left_child col-1">  ${key.id}</div>
-                              <div class="left_child col-2">  ${key.nombre}</div>
-                              <div class="left_child col-2">  ${key.codigo}</div>
-                              <div class="left_child col-6">  ${key.descripcion}</div>`;
-
-      derAdentro.innerHTML = `<div class="right_child col-6"> ${key.cantidad}</div>
-                              <div class="right_child col-6"> ${key.vendido}</div>`;
-    }
+    seleccionarSucursal(sucCapFederal);
   } else if (selectedValue === '2') {
-    for (const key of sucAvellaneda.items) {
-      let seccion = document.createElement('section');
-      seccion.className = 'produDisplay';
-      document.body.append(seccion);
-      ///////
-      let contPrincipal = document.createElement('div');
-      contPrincipal.className = 'mainContainer row';
-      seccion.appendChild(contPrincipal);
-      //////
-      let contIzquierda = document.createElement('div');
-      contIzquierda.className = 'leftContainer col-8';
-      contPrincipal.appendChild(contIzquierda);
-      // ADENTRO
-      let izqAdentro = document.createElement('div');
-      izqAdentro.className = 'leftInside row';
-      contIzquierda.appendChild(izqAdentro);
-
-      //////
-      let contDerecha = document.createElement('div');
-      contDerecha.className = 'rightContainer col-4';
-      contPrincipal.appendChild(contDerecha);
-      // ADENTRO
-      let derAdentro = document.createElement('div');
-      derAdentro.className = 'rightInside row';
-      contDerecha.appendChild(derAdentro);
-
-      izqAdentro.innerHTML = `<div class="left_child col-1">  ${key.id}</div>
-                              <div class="left_child col-2">  ${key.nombre}</div>
-                              <div class="left_child col-2">  ${key.codigo}</div>
-                              <div class="left_child col-6">  ${key.descripcion}</div>`;
-
-      derAdentro.innerHTML = `<div class="right_child col-6"> ${key.cantidad}</div>
-                              <div class="right_child col-6"> ${key.vendido}</div>`;
-    }
+    seleccionarSucursal(sucAvellaneda);
   }
 });
 
