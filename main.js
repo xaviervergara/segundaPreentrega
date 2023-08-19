@@ -245,7 +245,7 @@ sucCapFederal.ingresarCliente(
 //////////////////////////////////////////////////////////////////////
 ////////////////////////MONITOREO SUCURSALES/////////////////////////
 ////////////////////////////////////////////////////////////////////
-
+sabPrimavera.verCant(sucCapFederal);
 sucCapFederal.verStock();
 sucAvellaneda.filtro('categoria', 'baño');
 
@@ -285,6 +285,9 @@ selectElement.addEventListener('change', function () {
 
   let seleccionarSucursal = function (sucursal) {
     for (const key of sucursal.items) {
+      //llama a la funcion verCant a cada producto
+      key.verCant(sucursal);
+      //Se crea la estructura de bloque contenedora
       let seccion = document.createElement('section');
       seccion.className = 'produDisplay';
       document.body.append(seccion);
@@ -315,7 +318,7 @@ selectElement.addEventListener('change', function () {
                                 <div class="left_child col-2">  ${key.codigo}</div>
                                 <div class="left_child col-6">  ${key.descripcion}</div>`;
 
-      derAdentro.innerHTML = `<div class="right_child col-6"> ${key.cantidad}</div>
+      derAdentro.innerHTML = `<div class="right_child col-6"> ${key.canti}</div>
                                 <div class="right_child col-6"> ${key.vendido}</div>`;
     }
   };

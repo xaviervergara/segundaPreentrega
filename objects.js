@@ -178,6 +178,15 @@ class Producto {
     this.stock = info.stock;
     this.vendido = info.vendido;
   }
+
+  //VER EL NUMBER CANTIDAD DE STOCK
+
+  verCant(suc) {
+    const check = this.stock.find((element) => element.sucursal == suc.nombre);
+    if (check) {
+      this.canti = check.cantidad;
+    }
+  }
 }
 
 //CONSTRUCTOR PARA EMPLEADOS

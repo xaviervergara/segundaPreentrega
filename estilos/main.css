@@ -230,6 +230,16 @@ nav {
 /* PRODU-DISPLAY */
 
 /* CONTENEDOR PADRE */
+
+.produDisplay-fixed {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 5em;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
 .produDisplay {
   display: flex;
   justify-content: center;
@@ -239,6 +249,21 @@ nav {
 }
 
 /* MAIN DISPLAY */
+
+.mainContainer-fixed {
+  background-color: rgb(36, 38, 39);
+  width: 80%;
+  height: 4em;
+  align-items: center;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 255, 255, 0.705);
+}
+
+.mainContainer-fixed > .rightContainer-fix,
+.mainContainer-fixed > .leftContainer-fix {
+  color: rgb(204, 204, 204);
+}
+
 .mainContainer {
   background-color: rgba(255, 255, 255, 0.705);
   width: 80%;
