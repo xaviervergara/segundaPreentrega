@@ -115,3 +115,44 @@ selectElement.addEventListener('change', () => {
 //     seleccionarSucursal(sucAvellaneda);
 //   }
 // });
+
+// const sunButton = document.getElementById('sunButton'); //sun button
+// sunButton.addEventListener('click', toggleDarkMode);
+
+// function toggleDarkMode() {
+//   const htmlElement = document.getElementById('htmlElement');
+
+//   // Cambiar las clases o estilos según el modo actual
+//   if (htmlElement.classList.contains('darkMode')) {
+//     htmlElement.classList.remove('darkMode');
+//   } else {
+//     htmlElement.classList.add('darkMode');
+//   }
+// }
+//////////////////////////////////////////////////////// Este es
+const sunButton = document.getElementById('sunButton');
+sunButton.addEventListener('click', toggleTheme);
+
+// Obtener el tema actual desde el Local Storage
+const currentTheme = localStorage.getItem('theme');
+
+// Aplicar el tema actual al cargar la página
+if (currentTheme) {
+  applyTheme(currentTheme);
+}
+
+function toggleTheme() {
+  const currentTheme = localStorage.getItem('theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+  applyTheme(newTheme);
+  localStorage.setItem('theme', newTheme);
+}
+
+function applyTheme(theme) {
+  if (theme === 'dark') {
+    document.documentElement.classList.add('darkMode');
+  } else {
+    document.documentElement.classList.remove('darkMode');
+  }
+}
