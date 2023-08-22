@@ -20,7 +20,7 @@ class Sucursal {
     this.items.forEach((element) => console.log(element));
   }
 
-  //NUEVA FUNCION DE INGRESO DE MERCADERIA EN DESARROLLO
+  //FUNCION DE INGRESO DE MERCADERIA EN DESARROLLO
   //ingresa stock en la sucursal, y en el producto mismo.
 
   ingreso(producto, cant) {
@@ -61,11 +61,11 @@ class Sucursal {
       (element) =>
         element.nombre === producto.nombre && element.sucursal === this.nombre
     );
-    if (!prodEnSucursal || prodEnSucursal.cantidad <= 0) {
+    if (!prodEnSucursal || stockEnProducto.cantidad <= 0) {
       console.log('Sin stock');
-    } else if (cantidad > prodEnSucursal.cantidad) {
+    } else if (cantidad > stockEnProducto.cantidad) {
       console.log(
-        `Stock insuficiente. Stock actual ${prodEnSucursal.cantidad}`
+        `Stock insuficiente. Stock actual ${stockEnProducto.cantidad}`
       );
     } else {
       descuento = producto.precio * (descuento / 100);
@@ -177,14 +177,15 @@ class Producto {
     this.composicion = info.composicion;
     this.stock = info.stock;
     this.vendido = info.vendido;
+    this.cant = info.cant;
   }
 
   //VER EL NUMBER CANTIDAD DE STOCK
 
-  verCant(suc) {
+  agregarCant(suc) {
     const check = this.stock.find((element) => element.sucursal == suc.nombre);
     if (check) {
-      this.canti = check.cantidad;
+      this.cant = check.cantidad;
     }
   }
 }
@@ -217,6 +218,246 @@ class Cliente {
   }
 }
 
+///////////////////////////////////////////////////////////////////
+///////////////////INSTANCIAS DE PRODUCTOS////////////////////////
+/////////////////////////////////////////////////////////////////
+
+////////////////////////////////
+////CATEGORIA: ROPA DE CAMA////
+//////////////////////////////
+
+const sabPrimavera = new Producto({
+  id: '0001',
+  articulo: 'sabanas',
+  codigo: '10113T08278%ME',
+  nombre: 'sabPrimavera',
+  descripcion: 'SAB-TWIN C/FAJA/VIVO ALG PEI PRIMAVERA',
+  precio: 33000,
+  medida: 'twin',
+  categoria: 'ropa de cama',
+  color: 'me',
+  composicion: '100% algodon',
+  stock: [],
+  vendido: 0,
+  cant: 0,
+});
+
+const acAniMarinos = new Producto({
+  id: '0002',
+  articulo: 'acolchados',
+  codigo: '20021U08227%CC',
+  nombre: 'acAniMarinos',
+  descripcion: 'ACOL-1PL REV ANIMALES MARINOS',
+  precio: 16495,
+  medida: '1pza',
+  categoria: 'ropa de cama',
+  color: 'cc',
+  composicion: '100% poliester',
+  stock: [],
+  vendido: 0,
+  cant: 0,
+});
+
+////////////////////////
+////CATEGORIA: BAÑO////
+//////////////////////
+
+const toaLisa = new Producto({
+  id: '0003',
+  articulo: 'toallas',
+  codigo: '30012E76394%KN',
+  nombre: 'toaLisa',
+  descripcion: 'JGO T-44X80 70X140 LISA 400G CLASSIC TDF',
+  precio: 8792,
+  medida: '70 x 140 cm / 44 x 80 cm',
+  categoria: 'baño',
+  color: 'kn',
+  composicion: '100% algodon',
+  stock: [],
+  vendido: 0,
+  cant: 0,
+});
+
+const cortCañamo = new Producto({
+  id: '0004',
+  articulo: 'cortinas',
+  codigo: '50201Z08151%KN',
+  nombre: 'cortCañamo',
+  descripcion: 'CORT-BANO C/P C/OJAL CAÑAMO',
+  precio: 13993,
+  medida: '185 x 185 cm',
+  categoria: 'baño',
+  color: 'kn',
+  composicion: '55% cáñamo, 45% algodón',
+  stock: [],
+  vendido: 0,
+  cant: 0,
+});
+
+//////////////////////////
+////CATEGORIA: COCINA////
+////////////////////////
+
+const mantRayaDesparejas = new Producto({
+  id: '0005',
+  articulo: 'manteles',
+  codigo: '51311G08136%A',
+  nombre: 'mantRayaDesparejas',
+  descripcion: 'CARP.RECT-2.00 ST POL CUERINA RAYAS DESPAREJA',
+  precio: 10392,
+  medida: '185 x 185 cm',
+  categoria: 'cocina',
+  color: 'a',
+  composicion: 'poliester cuerina',
+  stock: [],
+  vendido: 0,
+  cant: 0,
+});
+
+const secaPlatBamboo = new Producto({
+  id: '0006',
+  articulo: 'seca platos',
+  codigo: '86001Z60557%KN',
+  nombre: 'secaPlatBamboo',
+  descripcion: 'NT-SECAPLATOS BAMBOO CH',
+  precio: 14990,
+  medida: '40 x 23 x 25 cm',
+  categoria: 'cocina',
+  color: 'kn',
+  composicion: 'bamboo',
+  stock: [],
+  vendido: 0,
+  cant: 0,
+});
+
+////////////////////////
+////CATEGORIA: DECO////
+//////////////////////
+
+const portMacBamboo = new Producto({
+  id: '0007',
+  articulo: 'porta macetas',
+  codigo: '86061U00033%KN',
+  nombre: 'portMacBamboo',
+  descripcion: 'NT-PORTA MACETA BAMBOO CH',
+  precio: 7499,
+  medida: '15 x 15 x 15 cm',
+  categoria: 'deco',
+  color: 'kn',
+  composicion: 'bamboo',
+  stock: [],
+  vendido: 0,
+  cant: 0,
+});
+
+const espIrregular = new Producto({
+  id: '0008',
+  articulo: 'espejos',
+  codigo: '86061U00108%FD',
+  nombre: 'espIrregular',
+  descripcion: 'NT-ESPEJO FORMA VARIADA MARCO METAL',
+  precio: 22990,
+  medida: ' 60 x 58.5 x 1 cm',
+  categoria: 'deco',
+  color: 'fd',
+  composicion: 'metal',
+  stock: [],
+  vendido: 0,
+  cant: 0,
+});
+
+///////////////////////////////////////////////////////////////////
+///////////////////INSTANCIAS DE SUCURSALES///////////////////////
+/////////////////////////////////////////////////////////////////
+
+const sucCapFederal = new Sucursal({
+  nombre: 'sucCapFederal',
+  stockTotal: 0,
+  ventaDia: 0,
+  items: [],
+  empleados: [],
+  cliente: [],
+});
+
+const sucAvellaneda = new Sucursal({
+  nombre: 'sucAvellaneda',
+  stockTotal: 0,
+  ventaDia: 0,
+  items: [],
+  empleados: [],
+  cliente: [],
+});
+
+//////////////////////////////////////////////////////////////////////
+/////////////////INGRESO DE MERCADERIA CAPITAL FEDERAL////////////////
+
+sucCapFederal.ingreso(sabPrimavera, 199);
+sucCapFederal.ingreso(acAniMarinos, 1049);
+sucCapFederal.ingreso(toaLisa, 310);
+sucCapFederal.ingreso(cortCañamo, 447);
+sucCapFederal.ingreso(mantRayaDesparejas, 235);
+sucCapFederal.ingreso(secaPlatBamboo, 900);
+sucCapFederal.ingreso(portMacBamboo, 540);
+sucCapFederal.ingreso(espIrregular, 610);
+
+//////////////////////////////////////////////////////////////////////
+//////////////MOVIMENTO MERCADERIA DE CAPITAL A AVELLANEDA////////////
+
+//////////////////////////////////////////////////////////////////////
+/////////////////INGRESOS MERCADERIA AVELLANEDA//////////////////////
+sucAvellaneda.ingreso(mantRayaDesparejas, 987);
+sucAvellaneda.ingreso(secaPlatBamboo, 145);
+sucAvellaneda.ingreso(portMacBamboo, 754);
+sucAvellaneda.ingreso(espIrregular, 278);
+//////////////////////////////////////////////////////////////////////
+/////////////////VENTA DE MERCADERIA EN CAPITAL//////////////////////
+
+// sucCapFederal.venta(sabPrimavera, 34, 0);
+// sucCapFederal.venta(acAniMarinos, 234, 0);
+// sucCapFederal.venta(toaLisa, 32, 0);
+// sucCapFederal.venta(cortCañamo, 123, 0);
+// sucCapFederal.venta(mantRayaDesparejas, 44, 0);
+// sucCapFederal.venta(secaPlatBamboo, 125, 0);
+// sucCapFederal.venta(portMacBamboo, 522, 0);
+// sucCapFederal.venta(espIrregular, 440, 0);
+
+//////////////////////////////////////////////////////////////////////
+/////////////////INGRESO DE EMPLEADOS CAPITAL FEDERAL/////////////////
+
+/////Ramiro////
+sucCapFederal.agregarEmpleado(
+  'Ramiro',
+  'Medina,',
+  23,
+  48456984,
+  'rmedina@gmail.com'
+);
+////Andrea////
+sucCapFederal.agregarEmpleado(
+  'Andrea',
+  'Giugliotta',
+  49,
+  72851951,
+  'agiugliotta@gmail.com'
+);
+
+////AGREGAR CLIENTES////
+sucCapFederal.ingresarCliente(
+  'Romina',
+  'Rissiglione',
+  '34',
+  30124545,
+  'romirichi21@gmail.com',
+  'Buenos Aires'
+);
+
+//////////////////////////////////////////////////////////////////////
+////////////////////////MONITOREO SUCURSALES/////////////////////////
+////////////////////////////////////////////////////////////////////
+// sabPrimavera.verCant(sucCapFederal);
+// sucCapFederal.verStock();
+// sucAvellaneda.filtro('categoria', 'baño');
+
 // module.exports = {
 //   Producto,
 //   Sucursal,
@@ -224,4 +465,17 @@ class Cliente {
 //   Cliente,
 // };
 
-export { Sucursal, Producto, Empleado, Cliente };
+// export { Sucursal, Producto, Empleado, Cliente }; esta es la ultima
+
+export {
+  sabPrimavera,
+  acAniMarinos,
+  toaLisa,
+  cortCañamo,
+  mantRayaDesparejas,
+  secaPlatBamboo,
+  portMacBamboo,
+  espIrregular,
+  sucCapFederal,
+  sucAvellaneda,
+};
