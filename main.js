@@ -85,74 +85,39 @@ selectElement.addEventListener('change', () => {
   }
 });
 
-////
-// FUNCION SELECT DE STOCK
-/////////////////////////////////////////////////////////
-// FUNCION SELECT DE SUCURSAL
+////////////DARKMODE LOCALSTORAGE////////////////
 
-// selectElement.addEventListener('change', () => {
-//   const selectedValue = selectElement.value;
+const body = document.getElementById('cuerpo');
 
-//   const secciones = document.querySelectorAll('.produDisplay');
-
-//   secciones.forEach(function (seccion) {
-//     seccion.remove();
-//   });
-
-//   if (selectedValue === '1') {
-//     seleccionarSucursal(sucCapFederal); //aca habiamos quedado
-//     selectStock.addEventListener('change', () => {
-//       const secciones = document.querySelectorAll('.produDisplay');
-//       secciones.forEach(function (seccion) {
-//         seccion.remove();
-//       });
-//       const selectedValue = selectStock.value;
-//       if (selectedValue === '1') {
-//         filtroPorStock(sucCapFederal);
-//       }
-//     });
-//   } else if (selectedValue === '2') {
-//     seleccionarSucursal(sucAvellaneda);
-//   }
-// });
-
-// const sunButton = document.getElementById('sunButton'); //sun button
-// sunButton.addEventListener('click', toggleDarkMode);
-
-// function toggleDarkMode() {
-//   const htmlElement = document.getElementById('htmlElement');
-
-//   // Cambiar las clases o estilos según el modo actual
-//   if (htmlElement.classList.contains('darkMode')) {
-//     htmlElement.classList.remove('darkMode');
-//   } else {
-//     htmlElement.classList.add('darkMode');
-//   }
-// }
-//////////////////////////////////////////////////////// Este es
 const sunButton = document.getElementById('sunButton');
-sunButton.addEventListener('click', toggleTheme);
+sunButton.addEventListener('click', cambiarTema);
 
-// Obtener el tema actual desde el Local Storage
-const currentTheme = localStorage.getItem('theme');
+const temaActual = localStorage.getItem('theme');
 
-// Aplicar el tema actual al cargar la página
-if (currentTheme) {
-  applyTheme(currentTheme);
+if (temaActual) {
+  aplicarTema(temaActual);
 }
 
-function toggleTheme() {
-  const currentTheme = localStorage.getItem('theme');
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+function cambiarTema() {
+  const temaActual = localStorage.getItem('theme');
 
-  applyTheme(newTheme);
-  localStorage.setItem('theme', newTheme);
-}
+  let temaNuevo;
 
-function applyTheme(theme) {
-  if (theme === 'dark') {
-    document.documentElement.classList.add('darkMode');
+  if (temaActual === 'dark') {
+    temaNuevo = 'light';
   } else {
-    document.documentElement.classList.remove('darkMode');
+    temaNuevo = 'dark';
+  }
+
+  aplicarTema(temaNuevo);
+
+  localStorage.setItem('theme', temaNuevo);
+}
+
+function aplicarTema(theme) {
+  if (theme === 'dark') {
+    body.classList.add('lightMode');
+  } else {
+    body.classList.remove('lightMode');
   }
 }

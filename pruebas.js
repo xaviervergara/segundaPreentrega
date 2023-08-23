@@ -41,8 +41,31 @@
 // const producto1 = { id: 2, producto: "Arroz" };
 // const enJSON    = JSON.stringify(producto1);
 
-const prod = { nombre: 'gorra', precio: 23 };
+//DARK-MODE/////////////////////////////////////
+// const sunButton = document.getElementById('sunButton');
+// sunButton.addEventListener('click', toggleTheme);
 
-const aJSON = JSON.stringify(prod);
+// // Obtener el tema actual desde el Local Storage
+// const currentTheme = localStorage.getItem('theme');
 
-localStorage.setItem('prod', aJSON);
+// // Aplicar el tema actual al cargar la página
+// if (currentTheme) {
+//   applyTheme(currentTheme);
+// }
+
+// function toggleTheme() {
+//   const currentTheme = localStorage.getItem('theme');
+//   const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+
+//   applyTheme(newTheme);
+//   localStorage.setItem('theme', newTheme);
+// }
+
+// function applyTheme(theme) {
+//   if (theme === 'dark') {
+//     document.documentElement.classList.add('darkMode');
+//   } else {
+//     document.documentElement.classList.remove('darkMode');
+//   }
+// }
+////////////////////////////
