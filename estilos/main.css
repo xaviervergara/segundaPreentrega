@@ -1,13 +1,26 @@
 /* DARK MODE */
-.lightMode {
-  background-color: rgb(201, 201, 201) !important;
+.lightBody {
+  background-color: rgba(221, 212, 197, 0.808);
   color: rgb(117, 91, 60) !important;
+}
+
+.lightMdisplayC {
+  background-color: rgb(199, 193, 164) !important;
+}
+
+.lightMainDinamico {
+  background-color: rgb(199, 193, 164) !important;
+  width: 80%;
+  height: 4em;
+  align-items: center;
+  border-radius: 5px;
 }
 
 body {
   background-color: rgb(36, 38, 39);
   color: white;
   font-family: monospace;
+  transition: background-color 0.9s ease;
 }
 
 /* ///////////////
@@ -101,7 +114,7 @@ nav {
   color: rgb(36, 38, 39);
   /* border: 1px solid white; */
   width: 80%;
-  background-color: rgb(95, 94, 89);
+  background-color: rgba(112, 108, 102, 0.808);
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -126,7 +139,7 @@ nav {
   background-color: rgb(36, 38, 39);
   color: rgba(255, 255, 255, 0.705);
   margin: 1em;
-  border: none;
+  border: 1px solid rgba(255, 173, 79, 0.705);
 }
 
 .sucursalButton {
@@ -151,6 +164,7 @@ nav {
 .buttCodigo,
 .txtCodigo {
   margin: 1em;
+  border: 1px solid rgba(255, 173, 79, 0.705);
 }
 
 /* INPUT TEXTO CODIGO */
@@ -173,7 +187,7 @@ nav {
 
 /* BOTON LUPA CODIGO */
 .codeSearchIc {
-  color: rgb(36, 38, 39);
+  color: rgb(23, 30, 34);
 }
 
 /* INPUT TEXT DE COLOR */
@@ -183,6 +197,7 @@ nav {
   width: 25%;
   background-color: rgb(36, 38, 39);
   color: rgba(255, 255, 255, 0.705);
+  border: 1px solid rgba(255, 173, 79, 0.705);
 }
 
 .txtColor:focus {
@@ -213,13 +228,14 @@ nav {
   border: none;
   height: 55%;
   box-shadow: none !important;
+  border: 1px solid rgba(255, 173, 79, 0.705);
 }
 
 .resetButton {
   height: 55%;
   width: 10%;
   background-color: rgb(36, 38, 39);
-  border: none;
+  border: 1px solid rgba(255, 173, 79, 0.705);
 }
 
 .resetButton:focus {

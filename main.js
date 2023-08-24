@@ -13,7 +13,11 @@ import {
   sucAvellaneda,
 } from './objects.js';
 
-let seleccionarSucursal = function (sucursal) {
+function seleccionarSucursal(sucursal) {
+  const theme = localStorage.getItem('theme');
+  const containerClass =
+    theme === 'dark' ? 'mainContainer' : 'lightMainDinamico';
+
   //Agregar cantidad a la prop de cada producto
   sucursal.items.forEach((ele) => ele.agregarCant(sucursal));
 
@@ -24,7 +28,7 @@ let seleccionarSucursal = function (sucursal) {
     document.body.append(seccion);
     ///////
     let contPrincipal = document.createElement('div');
-    contPrincipal.className = 'mainContainer row';
+    contPrincipal.className = `${containerClass} anchor row`;
     seccion.appendChild(contPrincipal);
     //////
     let contIzquierda = document.createElement('div');
@@ -52,7 +56,7 @@ let seleccionarSucursal = function (sucursal) {
     derAdentro.innerHTML = `  <div class="right_child col-6"> ${key.cant}</div>
                               <div class="right_child col-6"> ${key.vendido}</div>`;
   }
-};
+}
 ////
 
 ////
@@ -65,16 +69,16 @@ const borrar = (etiqueta) => {
 };
 
 //traemos el select sucursal
-
 const selectElement = document.getElementById('sucursalSelect');
 //traemos el select stock
-
 const selectStock = document.getElementById('stockSelect');
 
 //////////////////////////////////////////////
 // FUNCION SELECT DE SUCURSAL
 selectElement.addEventListener('change', () => {
   const selectedValue = selectElement.value;
+  const currentTheme = localStorage.getItem('theme');
+  const etiqueta = document.getElementsByClassName('anchor');
 
   borrar('.produDisplay');
 
@@ -86,10 +90,13 @@ selectElement.addEventListener('change', () => {
 });
 
 ////////////DARKMODE LOCALSTORAGE////////////////
-
+//traemos la etiqueta body del html
 const body = document.getElementById('cuerpo');
-
+//traemos el display fijo donde esta el formulario
+const mDisplayC = document.getElementById('mDisplay-content');
+//traemos el boton para cambiar de tema
 const sunButton = document.getElementById('sunButton');
+//le agregamos un escuchador de eventos tipo click al boton de tema
 sunButton.addEventListener('click', cambiarTema);
 
 const temaActual = localStorage.getItem('theme');
@@ -115,9 +122,20 @@ function cambiarTema() {
 }
 
 function aplicarTema(theme) {
-  if (theme === 'dark') {
-    body.classList.add('lightMode');
+  const mainContainerDinamico =
+    document.getElementsByClassName('mainContainer');
+
+  if (theme === 'light') {
+    body.classList.add('lightBody');
+    mDisplayC.classList.add('lightMdisplayC');
+    for (const ele of mainContainerDinamico) {
+      ele.classList.add('lightMainDinamico');
+    }
   } else {
-    body.classList.remove('lightMode');
+    body.classList.remove('lightBody');
+    mDisplayC.classList.remove('lightMdisplayC');
+    for (const ele of mainContainerDinamico) {
+      ele.classList.remove('lightMainDinamico');
+    }
   }
 }
