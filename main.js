@@ -28,7 +28,8 @@ function seleccionarSucursal(sucursal) {
     document.body.append(seccion);
     ///////
     let contPrincipal = document.createElement('div');
-    contPrincipal.className = `${containerClass} anchor row`;
+    // contPrincipal.className = `${containerClass} row`;
+    contPrincipal.classList.add(containerClass, 'mainContainer', 'row');
     seccion.appendChild(contPrincipal);
     //////
     let contIzquierda = document.createElement('div');
@@ -77,8 +78,6 @@ const selectStock = document.getElementById('stockSelect');
 // FUNCION SELECT DE SUCURSAL
 selectElement.addEventListener('change', () => {
   const selectedValue = selectElement.value;
-  const currentTheme = localStorage.getItem('theme');
-  const etiqueta = document.getElementsByClassName('anchor');
 
   borrar('.produDisplay');
 
@@ -97,7 +96,7 @@ const mDisplayC = document.getElementById('mDisplay-content');
 //traemos el boton para cambiar de tema
 const sunButton = document.getElementById('sunButton');
 //le agregamos un escuchador de eventos tipo click al boton de tema
-sunButton.addEventListener('click', cambiarTema);
+sunButton.addEventListener('click', cambiarTema); //=====>> EVENTO
 
 const temaActual = localStorage.getItem('theme');
 
@@ -124,7 +123,6 @@ function cambiarTema() {
 function aplicarTema(theme) {
   const mainContainerDinamico =
     document.getElementsByClassName('mainContainer');
-
   if (theme === 'light') {
     body.classList.add('lightBody');
     mDisplayC.classList.add('lightMdisplayC');
