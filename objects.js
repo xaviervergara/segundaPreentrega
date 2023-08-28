@@ -391,24 +391,24 @@ const sucAvellaneda = new Sucursal({
 //////////////////////////////////////////////////////////////////////
 /////////////////INGRESO DE MERCADERIA CAPITAL FEDERAL////////////////
 
-sucCapFederal.ingreso(sabPrimavera, 199);
-sucCapFederal.ingreso(acAniMarinos, 1049);
-sucCapFederal.ingreso(toaLisa, 310);
-sucCapFederal.ingreso(cortCañamo, 447);
-sucCapFederal.ingreso(mantRayaDesparejas, 235);
-sucCapFederal.ingreso(secaPlatBamboo, 900);
-sucCapFederal.ingreso(portMacBamboo, 540);
-sucCapFederal.ingreso(espIrregular, 610);
+sucCapFederal.ingreso(sabPrimavera, 0);
+sucCapFederal.ingreso(acAniMarinos, 0);
+sucCapFederal.ingreso(toaLisa, 0);
+sucCapFederal.ingreso(cortCañamo, 0);
+sucCapFederal.ingreso(mantRayaDesparejas, 10);
+sucCapFederal.ingreso(secaPlatBamboo, 10);
+sucCapFederal.ingreso(portMacBamboo, 10);
+sucCapFederal.ingreso(espIrregular, 10);
 
 //////////////////////////////////////////////////////////////////////
 //////////////MOVIMENTO MERCADERIA DE CAPITAL A AVELLANEDA////////////
 
 //////////////////////////////////////////////////////////////////////
 /////////////////INGRESOS MERCADERIA AVELLANEDA//////////////////////
-sucAvellaneda.ingreso(mantRayaDesparejas, 987);
-sucAvellaneda.ingreso(secaPlatBamboo, 145);
-sucAvellaneda.ingreso(portMacBamboo, 754);
-sucAvellaneda.ingreso(espIrregular, 278);
+sucAvellaneda.ingreso(mantRayaDesparejas, 10);
+sucAvellaneda.ingreso(secaPlatBamboo, 10);
+sucAvellaneda.ingreso(portMacBamboo, 0);
+sucAvellaneda.ingreso(espIrregular, 0);
 //////////////////////////////////////////////////////////////////////
 /////////////////VENTA DE MERCADERIA EN CAPITAL//////////////////////
 
