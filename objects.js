@@ -409,6 +409,7 @@ sucAvellaneda.ingreso(mantRayaDesparejas, 10);
 sucAvellaneda.ingreso(secaPlatBamboo, 10);
 sucAvellaneda.ingreso(portMacBamboo, 0);
 sucAvellaneda.ingreso(espIrregular, 0);
+
 //////////////////////////////////////////////////////////////////////
 /////////////////VENTA DE MERCADERIA EN CAPITAL//////////////////////
 
