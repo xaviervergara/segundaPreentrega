@@ -14,14 +14,14 @@ import {
 } from './objects.js';
 
 ////Funcion filtrado x stock
-
-function aplicarFiltro(sucursal, filtro) {
+//Recibe array
+function aplicarFiltro(filtro) {
   const theme = localStorage.getItem('theme');
   const containerClass =
     theme === 'dark' ? 'mainContainer' : 'lightMainDinamico';
 
   //Agregar cantidad a la prop de cada producto
-  sucursal.items.forEach((ele) => ele.agregarCant(sucursal));
+  // sucursal.items.forEach((ele) => ele.agregarCant(sucursal));
 
   filtro.forEach((ele) => {
     //Se crea la estructura de bloque contenedora
@@ -71,23 +71,24 @@ const borrar = (etiqueta) => {
 };
 
 //traemos el select sucursal
-const selectElement = document.getElementById('sucursalSelect');
+const selectSucursal = document.getElementById('sucursalSelect');
 //traemos el select stock
 const selectStock = document.getElementById('stockSelect');
 
 //////////////////////////////////////////////
 // FUNCION SELECT DE SUCURSAL
-selectElement.addEventListener('change', () => {
-  const selectedValue = selectElement.value;
+selectSucursal.addEventListener('change', () => {
+  const sucursalValue = selectSucursal.value;
   const sucursalSeleccionada =
-    selectedValue === '1' ? sucCapFederal : sucAvellaneda;
+    sucursalValue === '1' ? sucCapFederal : sucAvellaneda;
+
   borrar('.produDisplay');
 
-  if (selectedValue === '1') {
-    aplicarFiltro(sucursalSeleccionada, sucursalSeleccionada.items);
-  } else if (selectedValue === '2') {
-    aplicarFiltro(sucursalSeleccionada, sucursalSeleccionada.items);
-  }
+  sucursalSeleccionada.items.forEach((ele) =>
+    ele.agregarCant(sucursalSeleccionada)
+  );
+
+  filtrarPorStock();
 });
 
 //////////////////////////////////////////////
@@ -98,30 +99,31 @@ selectElement.addEventListener('change', () => {
 selectStock.addEventListener('change', filtrarPorStock);
 
 function filtrarPorStock() {
-  //obtiene valor numerico de la sucursal seleccionada
-  const valorSucursal = selectElement.value;
-  //valor numerico usado para obtener variable de sucursal
+  const valorSucursal = selectSucursal.value;
+
   const sucursalSeleccionada =
     valorSucursal === '1' ? sucCapFederal : sucAvellaneda;
+
   const valorStock = selectStock.value;
-  //Productos con stock
-  const productoConStock = sucursalSeleccionada.items.filter(
-    (ele) => ele.cant > 0
-  );
-  //Productos sin stock
-  const productoSinStock = sucursalSeleccionada.items.filter(
-    (ele) => ele.cant == 0
-  );
-  //borrar contenido
+
   borrar('.produDisplay');
 
   if (valorStock === '0') {
-    // seleccionarSucursal(sucursalSeleccionada);
-    aplicarFiltro(sucursalSeleccionada, sucursalSeleccionada.items);
-  } else if (valorStock === '1') {
-    aplicarFiltro(sucursalSeleccionada, productoConStock);
+    aplicarFiltro(sucursalSeleccionada.items);
+    return;
+  }
+
+  const productoConStock = sucursalSeleccionada.items.filter(
+    (ele) => ele.cant > 0
+  );
+  const productoSinStock = sucursalSeleccionada.items.filter(
+    (ele) => ele.cant == 0
+  );
+
+  if (valorStock === '1') {
+    aplicarFiltro(productoConStock);
   } else if (valorStock === '2') {
-    aplicarFiltro(sucursalSeleccionada, productoSinStock);
+    aplicarFiltro(productoSinStock);
   }
 }
 
