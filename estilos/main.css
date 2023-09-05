@@ -32,7 +32,7 @@ body {
 nav {
   display: flex;
   height: 2.5em;
-  background-color: rgba(255, 173, 79, 0.705);
+  background-color: rgba(255, 173, 79, 0.706);
   justify-content: space-between;
   align-items: center;
 }
@@ -87,7 +87,7 @@ nav {
   display: flex;
   justify-content: center;
   background-color: rgb(36, 38, 39);
-  border: 1px solid rgba(255, 173, 79, 0.705);
+  border: 1px solid rgba(255, 173, 79, 0.706);
 }
 
 .posDescripcion-content > p {
@@ -320,4 +320,17 @@ nav {
   /* border: 1px solid red; */
   display: flex;
   justify-content: center;
+}
+
+.icono-popUp {
+  color: rgb(36, 38, 39) !important;
+  border-color: rgb(36, 38, 39) !important;
+}
+
+.title-popUp {
+  color: rgb(36, 38, 39);
+  font-size: 1.2em !important;
+}
+.confirm-popUp {
+  background-color: rgb(36, 38, 39) !important;
 }

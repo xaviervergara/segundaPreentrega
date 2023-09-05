@@ -79,8 +79,35 @@ const selectStock = document.getElementById('stockSelect');
 // FUNCION SELECT DE SUCURSAL
 selectSucursal.addEventListener('change', () => {
   const sucursalValue = selectSucursal.value;
-  const sucursalSeleccionada =
-    sucursalValue === '1' ? sucCapFederal : sucAvellaneda;
+  // const sucursalSeleccionada =
+  //   sucursalValue === '1' ? sucCapFederal : sucAvellaneda;
+
+  //Condicional mas exclusivo
+  let sucursalSeleccionada = null;
+
+  if (sucursalValue === '1') {
+    sucursalSeleccionada = sucCapFederal;
+  } else if (sucursalValue === '2') {
+    sucursalSeleccionada = sucAvellaneda;
+  } else if (sucursalValue === '3') {
+    Swal.fire({
+      title: 'Sucursal no disponible momentáneamente',
+      width: '20%',
+      height: '20%',
+      icon: 'warning',
+      background: '#ffad4fb4',
+      toast: true,
+      position: 'top-end',
+      timer: '2000',
+      timerProgressBar: true,
+      customClass: {
+        icon: 'icono-popUp',
+        title: 'title-popUp',
+        closeButton: 'button-popUp',
+        confirmButton: 'confirm-popUp',
+      },
+    });
+  }
 
   borrar('.produDisplay');
 
@@ -107,6 +134,12 @@ function filtrarPorStock() {
   const valorStock = selectStock.value;
 
   borrar('.produDisplay');
+
+  //corta la funcion si no hay ninguna suc seleccionada
+  if (valorSucursal === '0' || valorSucursal === '3') {
+    return;
+  }
+  //
 
   if (valorStock === '0') {
     aplicarFiltro(sucursalSeleccionada.items);
