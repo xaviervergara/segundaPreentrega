@@ -45,3 +45,17 @@
 //                               <div class="right_child col-6"> ${key.vendido}</div>`;
 //   }
 // }
+
+// const futuro = (valor) => {
+//   return new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       valor
+//         ? resolve(['andres', 'camila', 'juan'])
+//         : reject('Promesa rechazada');
+//     }, 5000);
+//   });
+// };
+
+// futuro(false)
+//   .then((response) => console.log(response))
+//   .catch((error) => console.log(error));
