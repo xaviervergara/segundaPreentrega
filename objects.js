@@ -405,8 +405,8 @@ sucCapFederal.ingreso(espIrregular, 10);
 
 //////////////////////////////////////////////////////////////////////
 /////////////////INGRESOS MERCADERIA AVELLANEDA//////////////////////
-sucAvellaneda.ingreso(mantRayaDesparejas, 10);
-sucAvellaneda.ingreso(secaPlatBamboo, 10);
+sucAvellaneda.ingreso(mantRayaDesparejas, 5);
+sucAvellaneda.ingreso(secaPlatBamboo, 5);
 sucAvellaneda.ingreso(portMacBamboo, 0);
 sucAvellaneda.ingreso(espIrregular, 0);
 

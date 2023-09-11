@@ -94,7 +94,8 @@ selectSucursal.addEventListener('change', () => {
   borrar('.produDisplay');
 
   // filtrarPorStock();
-  filtroPorCodigo();
+  // filtroPorCodigo();
+  filtroColor();
 });
 
 ///////////////////////////////////////////////////
@@ -183,7 +184,7 @@ function filtroPorCodigo() {
   if (sucursalSeleccionada) {
     filtrarPorStock();
   }
-  console.log(`valor del input ${!!codigoIngresado}`);
+  // console.log(`valor del input ${!!codigoIngresado}`);
 
   if (!!codigoIngresado) {
     if (producto.length == 0) {
@@ -192,6 +193,42 @@ function filtroPorCodigo() {
     } else if (producto) {
       borrar('.produDisplay');
       aplicarFiltro(producto);
+    }
+  }
+}
+
+///////////////////////////////////////////////////
+///////////////////FILTRAR POR COLOR/////////////
+/////////////////////////////////////////////////
+
+const textoColor = document.getElementById('textoColor');
+
+textoColor.addEventListener('input', filtroColor);
+
+function filtroColor() {
+  const valorSucursal = selectSucursal.value;
+
+  let sucursalSeleccionada = null;
+
+  if (valorSucursal === '1') {
+    sucursalSeleccionada = sucCapFederal;
+  } else if (valorSucursal === '2') {
+    sucursalSeleccionada = sucAvellaneda;
+  }
+
+  const textoIngresado = textoColor.value.toLowerCase();
+  const productoColor = sucursalSeleccionada.items.filter(
+    (ele) => ele.color == textoIngresado
+  );
+
+  if (sucursalSeleccionada) {
+    filtrarPorStock();
+  }
+
+  if (!!textoIngresado) {
+    if (productoColor) {
+      borrar('.produDisplay');
+      aplicarFiltro(productoColor);
     }
   }
 }
