@@ -9,19 +9,22 @@ import {
   secaPlatBamboo,
   portMacBamboo,
   espIrregular,
+  // swalConfig,
   sucCapFederal,
   sucAvellaneda,
+  alertaPersonalizada,
 } from './objects.js';
 
-////Funcion filtrado x stock
-//Recibe array
+///////////////////////////////////////////////////////
+//FUNCION PARA PINTAR ESTRUCTURA  DINAMICA EN EL DOM//
+/////////////////////////////////////////////////////
+
 function aplicarFiltro(filtro) {
+  //traemos el theme del Storage, "containerClass" almacena nombre de clase oscura o clara
   const theme = localStorage.getItem('theme');
   const containerClass =
     theme === 'dark' ? 'mainContainer' : 'lightMainDinamico';
 
-  //Agregar cantidad a la prop de cada producto
-  // sucursal.items.forEach((ele) => ele.agregarCant(sucursal));
   filtro.forEach((ele) => {
     //Se crea la estructura de bloque contenedora
     let seccion = document.createElement('section');
@@ -29,7 +32,6 @@ function aplicarFiltro(filtro) {
     document.body.append(seccion);
     ///////
     let contPrincipal = document.createElement('div');
-    // contPrincipal.className = `${containerClass} row`;
     contPrincipal.classList.add(containerClass, 'mainContainer', 'row');
     seccion.appendChild(contPrincipal);
     //////
@@ -59,89 +61,50 @@ function aplicarFiltro(filtro) {
                               <div class="right_child col-6"> ${ele.vendido}</div>`;
   });
 }
-////////////////////////////////////////////////////
 
-////
-
-// FUNCION PARA BORRAR TODAS LAS ETIQUETAS ANTERIORES
+////////////////////////////////////////////////////////
+// FUNCION PARA BORRAR TODAS LAS ETIQUETAS ANTERIORES//
+//////////////////////////////////////////////////////
 
 const borrar = (etiqueta) => {
   const secciones = document.querySelectorAll(etiqueta);
   secciones.forEach((ele) => ele.remove());
 };
 
+//////////////////////////////////////////////
+///////// FUNCION SELECT DE SUCURSAL/////////
+////////////////////////////////////////////
+
 //traemos el select sucursal
 const selectSucursal = document.getElementById('sucursalSelect');
 //traemos el select stock
 const selectStock = document.getElementById('stockSelect');
 
-//////////////////////////////////////////////
-// FUNCION SELECT DE SUCURSAL
 selectSucursal.addEventListener('change', () => {
   const sucursalValue = selectSucursal.value;
-  // const sucursalSeleccionada =
-  //   sucursalValue === '1' ? sucCapFederal : sucAvellaneda;
 
-  //Condicional mas exclusivo
-  let sucursalSeleccionada = null;
-
-  if (sucursalValue === '1') {
-    sucursalSeleccionada = sucCapFederal;
-  } else if (sucursalValue === '2') {
-    sucursalSeleccionada = sucAvellaneda;
-  } else if (sucursalValue === '3') {
-    Swal.fire({
-      title: 'Sucursal no disponible momentáneamente',
-      width: '20%',
-      height: '20%',
-      icon: 'warning',
-      background: '#ffad4fb4',
-      toast: true,
-      position: 'top-end',
-      timer: '2000',
-      timerProgressBar: true,
-      customClass: {
-        icon: 'icono-popUp',
-        title: 'title-popUp',
-        closeButton: 'button-popUp',
-        confirmButton: 'confirm-popUp',
-      },
-    });
+  if (sucursalValue === '3') {
+    borrar('.produDisplay');
+    Swal.fire(alertaPersonalizada('Sucursal no disponible'));
+    return;
   } else if (sucursalValue === '4') {
-    fetch(
-      'https://api.mercadolibre.com/sites/MLA/search?nickname=ARREDOTIENDAONLINE'
-    )
-      .then((response) => response.json())
-      // .then((data) =>
-      //   data.results.forEach((ele) =>
-      //     console.log(Object.keys(ele.variations_data)[0])
-      //   )
-      // )
-      .then((data) => aplicarFiltroTiendaOnline(data.results))
-      .catch((error) => console.log(error));
+    apiMl();
   }
 
   borrar('.produDisplay');
 
-  sucursalSeleccionada.items.forEach((ele) =>
-    ele.agregarCant(sucursalSeleccionada)
-  );
-
-  filtrarPorStock();
+  // filtrarPorStock();
+  filtroPorCodigo();
 });
 
-//////////////////////////////////////////////
-
-///////////////////////////////////////////////////////////
-///Funcion filtro x stock
+///////////////////////////////////////////////////
+/////////////Funcion filtro x stock///////////////
+/////////////////////////////////////////////////
 
 selectStock.addEventListener('change', filtrarPorStock);
 
 function filtrarPorStock() {
   const valorSucursal = selectSucursal.value;
-
-  // const sucursalSeleccionada =
-  //   valorSucursal === '1' ? sucCapFederal : sucAvellaneda;
 
   let sucursalSeleccionada = null;
 
@@ -150,16 +113,24 @@ function filtrarPorStock() {
   } else if (valorSucursal === '2') {
     sucursalSeleccionada = sucAvellaneda;
   }
+  //Funcion para obtener la cantidad desde el obj stock interno del producto, e ingresarla
+  //en la propiedad "cant" del mismo.
+
+  sucursalSeleccionada.items.forEach((ele) =>
+    ele.agregarCant(sucursalSeleccionada)
+  );
 
   const valorStock = selectStock.value;
 
   borrar('.produDisplay');
 
-  //corta la funcion si no hay ninguna suc seleccionada
+  //corta la funcion si no hay ninguna suc seleccionada o si se selecciona
+  //martinez, la cual no existe en el "back" y a su vez tira un alert
   if (valorSucursal === '0' || valorSucursal === '3') {
     return;
   }
-  //
+
+  ///////////
 
   if (valorStock === '0') {
     aplicarFiltro(sucursalSeleccionada.items);
@@ -179,8 +150,56 @@ function filtrarPorStock() {
     aplicarFiltro(productoSinStock);
   }
 }
+///////////////////////////////////////////////////
+///////////////////FILTRAR POR CODIGO/////////////
+/////////////////////////////////////////////////
 
+//traemos el campo de texto
+const textoCodigo = document.getElementById('textoCodigo');
+//traemos el boton lupa
+const inputCodigo = document.getElementById('button-addon2');
+
+//se escucha evento en el boton lupa y se agrega la funcion para filtrar x codigo
+inputCodigo.addEventListener('click', filtroPorCodigo);
+
+//funcion filtro por codigo
+function filtroPorCodigo() {
+  const valorSucursal = selectSucursal.value;
+
+  let sucursalSeleccionada = null;
+
+  if (valorSucursal === '1') {
+    sucursalSeleccionada = sucCapFederal;
+  } else if (valorSucursal === '2') {
+    sucursalSeleccionada = sucAvellaneda;
+  }
+
+  const codigoIngresado = textoCodigo.value;
+
+  const producto = sucursalSeleccionada.items.filter(
+    (ele) => ele.codigo === codigoIngresado
+  );
+
+  if (sucursalSeleccionada) {
+    filtrarPorStock();
+  }
+  console.log(`valor del input ${!!codigoIngresado}`);
+
+  if (!!codigoIngresado) {
+    if (producto.length == 0) {
+      borrar('.produDisplay');
+      Swal.fire(alertaPersonalizada('Producto sin ingreso'));
+    } else if (producto) {
+      borrar('.produDisplay');
+      aplicarFiltro(producto);
+    }
+  }
+}
+
+//////////////////////////////////////////////////
 ////////////DARKMODE LOCALSTORAGE////////////////
+////////////////////////////////////////////////
+
 //traemos la etiqueta body del html
 const body = document.getElementById('cuerpo');
 //traemos el display fijo donde esta el formulario
@@ -230,8 +249,26 @@ function aplicarTema(theme) {
   }
 }
 
-////////////////////////////////////////////////////////////////
-//FUNCION PRUEBA PARA PINTAR PRODUCTOS DE LA API ML
+/////////////////////////////////////////////////////////////
+//FUNCION ASYNC/AWAIT PETICION PRODUCTOS API MERCADO LIBRE//
+///////////////////////////////////////////////////////////
+
+const apiMl = async () => {
+  try {
+    const response = await fetch(
+      'https://api.mercadolibre.com/sites/MLA/search?nickname=ARREDOTIENDAONLINE'
+    );
+    const data = await response.json();
+    aplicarFiltroTiendaOnline(data.results);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+//////////////////////////////////////////////////////
+//FUNCION PRUEBA PARA PINTAR PRODUCTOS DE LA API ML//
+////////////////////////////////////////////////////
+
 function aplicarFiltroTiendaOnline(filtro) {
   const theme = localStorage.getItem('theme');
   const containerClass =

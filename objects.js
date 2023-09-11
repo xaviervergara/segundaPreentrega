@@ -466,8 +466,27 @@ sucCapFederal.ingresarCliente(
 //   Cliente,
 // };
 
-// export { Sucursal, Producto, Empleado, Cliente }; esta es la ultima
+const alertaPersonalizada = function (mensaje) {
+  return {
+    title: mensaje,
+    width: '20%',
+    height: '20%',
+    icon: 'warning',
+    background: '#ffad4fb4',
+    toast: true,
+    position: 'top-end',
+    timer: '2000',
+    timerProgressBar: true,
+    customClass: {
+      icon: 'icono-popUp',
+      title: 'title-popUp',
+      closeButton: 'button-popUp',
+      confirmButton: 'confirm-popUp',
+    },
+  };
+};
 
+// export { Sucursal, Producto, Empleado, Cliente }; esta es la ultima
 export {
   sabPrimavera,
   acAniMarinos,
@@ -479,4 +498,6 @@ export {
   espIrregular,
   sucCapFederal,
   sucAvellaneda,
+  // swalConfig,
+  alertaPersonalizada,
 };
