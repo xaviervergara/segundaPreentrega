@@ -317,7 +317,7 @@ nav {
 }
 
 .right_child {
-  /* border: 1px solid red; */
+  border: 1px solid yellow;
   display: flex;
   justify-content: center;
 }
@@ -333,4 +333,54 @@ nav {
 }
 .confirm-popUp {
   background-color: rgb(36, 38, 39) !important;
+}
+
+/* ///////////////////////////////////////////// */
+
+/* MEDIA QUERIES */
+
+@media (max-width: 480px) {
+  .mainDisplay > .mainDisplay-content {
+    height: 18em;
+  }
+
+  .sucursalButton,
+  .stockButton,
+  .grupoCodigoTxt,
+  .txtCodigo,
+  .txtColor,
+  .filtroButton,
+  .resetButton {
+    width: 90%;
+  }
+
+  .resetButton {
+    margin: 1em;
+  }
+  .right_child {
+    flex-direction: column;
+    justify-content: flex-start;
+  }
+
+  /* DINAMICO */
+  .firstRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .secondRow {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .mainContainer {
+    height: 10em;
+    align-items: flex-start;
+  }
+
+  .leftContainer {
+    flex-direction: row;
+  }
+  .rightContainer {
+    flex-direction: row;
+  }
 }

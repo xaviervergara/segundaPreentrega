@@ -93,9 +93,7 @@ selectSucursal.addEventListener('change', () => {
 
   borrar('.produDisplay');
 
-  // filtrarPorStock();
-  // filtroPorCodigo();
-  filtroColor();
+  filtroCategoria();
 });
 
 ///////////////////////////////////////////////////
@@ -223,12 +221,64 @@ function filtroColor() {
 
   if (sucursalSeleccionada) {
     filtrarPorStock();
+    filtroPorCodigo();
   }
 
   if (!!textoIngresado) {
     if (productoColor) {
       borrar('.produDisplay');
       aplicarFiltro(productoColor);
+    }
+  }
+}
+///////////////////////////////////////////////////
+///////////////FILTRAR POR CATEGORIAS/////////////
+/////////////////////////////////////////////////
+
+const selectCategoria = document.getElementById('selectCategoria');
+
+selectCategoria.addEventListener('change', filtroCategoria);
+
+function filtroCategoria() {
+  //VALOR DE SUCURSAL
+  const valorSucursal = selectSucursal.value;
+
+  let sucursalSeleccionada = null;
+
+  if (valorSucursal === '1') {
+    sucursalSeleccionada = sucCapFederal;
+  } else if (valorSucursal === '2') {
+    sucursalSeleccionada = sucAvellaneda;
+  }
+
+  if (sucursalSeleccionada) {
+    filtrarPorStock();
+    filtroColor();
+    filtroPorCodigo();
+  }
+  //VALOR DEL SELECT CATEGORIA
+  let valorCategoria = null;
+
+  if (selectCategoria.value === '1') {
+    valorCategoria = 'ropa de cama';
+  } else if (selectCategoria.value === '2') {
+    valorCategoria = 'baño';
+  } else if (selectCategoria.value === '3') {
+    valorCategoria = 'cocina';
+  } else if (selectCategoria.value === '4') {
+    valorCategoria = 'deco';
+  }
+
+  const productoPorCategoria = sucursalSeleccionada.items.filter(
+    (ele) => ele.categoria === valorCategoria
+  );
+
+  if (selectCategoria.value != 0) {
+    borrar('.produDisplay');
+    aplicarFiltro(productoPorCategoria);
+    if (productoPorCategoria.length == 0) {
+      borrar('.produDisplay');
+      Swal.fire(alertaPersonalizada('No se encontraron productos'));
     }
   }
 }
