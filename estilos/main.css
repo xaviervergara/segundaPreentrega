@@ -24,6 +24,7 @@ body {
   font-family: monospace;
   transition: background-color 0.9s ease;
   transition: background-color 0.3s ease;
+  height: 100%;
 }
 
 /* ///////////////
@@ -264,6 +265,7 @@ nav {
   height: 3em;
   font-weight: 500;
   font-size: 1.2em;
+  /* border: 1px solid yellow; */
 }
 
 .mainContainer-fixed {
@@ -317,7 +319,7 @@ nav {
 }
 
 .right_child {
-  border: 1px solid yellow;
+  /* border: 1px solid yellow; */
   display: flex;
   justify-content: center;
 }
@@ -339,10 +341,31 @@ nav {
 
 /* MEDIA QUERIES */
 
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .mainDisplay {
+    height: 100%;
+  }
+
   .mainDisplay > .mainDisplay-content {
     height: 18em;
   }
+
+  .produDisplay-fixed {
+    height: 2em;
+    margin: 1em;
+    height: 10em;
+    display: none;
+  }
+
+  .mainContainer-fixed {
+    border: 1px solid yellow;
+    display: none;
+    flex-direction: column;
+    width: 80%;
+    height: 100%;
+  }
+
+  /* etiquetas formulario */
 
   .sucursalButton,
   .stockButton,
@@ -362,7 +385,6 @@ nav {
     justify-content: flex-start;
   }
 
-  /* DINAMICO */
   .firstRow {
     flex-direction: column;
     align-items: flex-start;
@@ -373,7 +395,7 @@ nav {
   }
 
   .mainContainer {
-    height: 10em;
+    height: 100%;
     align-items: flex-start;
   }
 
@@ -382,5 +404,35 @@ nav {
   }
   .rightContainer {
     flex-direction: row;
+  }
+
+  /* DINAMICOS */
+  .produDisplay {
+    margin-top: 1em;
+    height: 100%; /* Añade un margen superior para que produDisplay se desplace hacia abajo de mainDisplayContent */
+  }
+
+  .rightContainer,
+  .leftContainer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .rightContainer {
+    width: 25%;
+  }
+  .leftContainer {
+    width: 75%;
+  }
+  .rightInside,
+  .rightContainer {
+    height: 50%;
+  }
+
+  .rightInside,
+  .leftInside {
+    display: flex;
+    flex-direction: column;
+    display: flex;
   }
 }

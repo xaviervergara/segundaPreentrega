@@ -52,13 +52,13 @@ function aplicarFiltro(filtro) {
     derAdentro.className = 'rightInside row';
     contDerecha.appendChild(derAdentro);
 
-    izqAdentro.innerHTML = `  <div class="left_child col-1">  ${ele.id}</div>
-                              <div class="left_child col-2">  ${ele.nombre}</div>
-                              <div class="left_child col-2">  ${ele.codigo}</div>
-                              <div class="left_child col-6">  ${ele.descripcion}</div>`;
+    izqAdentro.innerHTML = `  <div class="left_child col-1"> Id: ${ele.id}</div>
+                              <div class="left_child col-2"> Nombre: ${ele.nombre}</div>
+                              <div class="left_child col-2"> Sku: ${ele.codigo}</div>
+                              <div class="left_child  col-6"> Dec: ${ele.descripcion}</div>`;
 
-    derAdentro.innerHTML = `  <div class="right_child col-6"> ${ele.cant}</div>
-                              <div class="right_child col-6"> ${ele.vendido}</div>`;
+    derAdentro.innerHTML = `  <div class="right_child col-6"> Cant: ${ele.cant}</div>
+                              <div class="right_child col-6"> Vendido: ${ele.vendido}</div>`;
   });
 }
 
